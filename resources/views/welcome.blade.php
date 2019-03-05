@@ -24,7 +24,9 @@
   <link href="css/agency.min.css" rel="stylesheet">
 
 </head>
-
+<?php
+ phpinfo();
+?>
 <body id="page-top">
 
   <!-- Navigation -->
