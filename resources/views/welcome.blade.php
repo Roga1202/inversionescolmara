@@ -24,9 +24,6 @@
   <link href="css/agency.min.css" rel="stylesheet">
 
 </head>
-<?php
- phpinfo();
-?>
 <body id="page-top">
 
   <!-- Navigation -->
@@ -39,6 +36,9 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav text-uppercase ml-auto">
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="/proceso">Proceso</a>
+          </li>
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="#services">Servicios</a>
           </li>
