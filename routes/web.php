@@ -11,8 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/','IndexController@get_index');
 
-Route::any('/proceso','ProcesoController@get_index');
+Route::get('/proceso','IndexController@get_home');
+
+Route::any('/importar/cliente','ClienteController@post_importar_cliente');
