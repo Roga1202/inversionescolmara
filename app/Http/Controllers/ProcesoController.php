@@ -12,8 +12,11 @@ class ProcesoController extends Controller
     public function get_index(){
         $importacion = new ClienteImport;
         Excel::import($importacion, 'resultado.xlsx');
-        dd($importacion);
-        $numero_errores= count($importacion->getErrores());
-        return view('Proceso.index');
+        $numero_errores= $importacion->getNumberError();
+        $numero_registros = $importacion->getNumberRegister();
+        return view('Proceso.index',[
+            'numero_errores' => $numero_errores,
+            'numero_registros' => $numero_registros
+        ]);
     }
 }

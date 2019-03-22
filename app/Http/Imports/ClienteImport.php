@@ -10,17 +10,18 @@ use Maatwebsite\Excel\Concerns\ToCollection;
 class ClienteImport implements ToCollection
 {
     
-    private $errores;
-    private $numero_registros;
+    private $errores = [];
+    private $numero_registros = 0;
+    private $numero_errores = 0;
 
     public function collection(Collection $rows)
     {
         $errores= [];
-        $contador = 0;
-        $i = 0;
+        $contador_registros = 0;
+        $contador_errores = 0;
         foreach ($rows as $row)
         {
-            if ($contador != 0) {
+            if ($contador_registros != 0) {
                 try {
                     Cliente::create([
                         'CL_ID_GEO'=> $row[0],
@@ -37,21 +38,26 @@ class ClienteImport implements ToCollection
                         'CL_correo'=> $row[13]
                     ]);
                 }catch(\Exception $e){
-                    $this->errores[$i]=$e->getMessage();
+                    $this->errores[$contador_errores]=$e->getMessage();
                     report($e);
-                    $i++;
+                    $contador_errores++;
                 }
             }
-            $contador++;
+            $contador_registros++;
         }
-        $this->numero_registros = $contador;
+        $this->numero_errores = $contador_errores-1;
+        $this->numero_registros = $contador_registros-1;
     }
 
     public function getErrores(){
         return $this->errores;
     }
 
-    public function getNumberError(){
+    public function getNumberRegister(){
         return $this->numero_registros;
+    }
+
+    public function getNumberError(){
+        return $this->numero_errores;
     }
 }
