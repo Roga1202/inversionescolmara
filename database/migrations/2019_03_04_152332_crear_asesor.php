@@ -19,10 +19,10 @@ class CrearAsesor extends Migration
             $table->collation = 'utf8_spanish2_ci';
             $table->increments('AS_ID');
             $table->string('AS_nombre');
-            $table->string('AS_cedula')->unique();
-            $table->string('AS_direccion');
-            $table->string('AS_telefono')->unique();
-            $table->string('AS_telefono_emergencia')->nulleable();
+            $table->string('AS_cedula')->unique()->nullable();
+            $table->string('AS_direccion')->nullable();
+            $table->string('AS_telefono');
+            $table->string('AS_telefono_emergencia')->nullable();
             $table->string('AS_tipo')->nullable();
             $table->string('AS_correo')->nullable();
             $table->integer('AS_ventas_total')->default(0)->unsigned();
@@ -33,11 +33,11 @@ class CrearAsesor extends Migration
             //Telefono
             $table->string('AS_IMEI')->unique();
             $table->string('AS_grupo',50)->nulleable();
+            $table->string('AS_fabricante_tlf');
             $table->string('AS_modelo_tlf',50);
             $table->string('AS_OS_tlf',10);
             $table->string('AS_alias',50)->unique();
             $table->string('AS_estado',50);
-            // $table->date('AS_ultima_fecha');
             $table->string('AS_ultima_fecha')->default(0);
             $table->time('AS_ultima_hora')->default('00:00:00');
             $table->string('AS_ultimo_reporte')->default(0);

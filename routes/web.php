@@ -15,4 +15,6 @@ Route::get('/','IndexController@get_index');
 
 Route::get('/proceso','IndexController@get_home');
 
-Route::any('/importar/cliente','ClienteController@post_importar_cliente');
+Route::get('/importar/cliente','ClienteController@post_importar_cliente');
+Route::get('/importar/asesor','AsesorController@post_importar_asesor');
+Route::get('/importar/evento','EventoController@post_importar_evento');
