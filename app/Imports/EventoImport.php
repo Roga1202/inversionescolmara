@@ -1,5 +1,4 @@
 <?php
-//dar a saber que no se encuentra registrado el cliente
 namespace App\Imports;
 
 use App\Evento;
@@ -43,12 +42,19 @@ class EventoImport implements ToCollection
                 //cliente
                 $cliente= Cliente::where('CL_nombre_completo',$row[3])->first();
                 
-                if( $asesor == null || $cliente == null){
-                    error_log('División por cero.');
+                if($asesor == null || $cliente == null){
+                    if($asesor == null){
+                        $message = 'El asesor no existe.';
+                    }elseif($cliente == null){
+                        $message = 'El cliente no existe.';
+                    }else{
+                        $message = 'El cliente y asesor no existen.';
+                    }
+                    \Log::error($message);
                 }
 
+
                 //hora visita
-                // 1:55:00 AM
                 $hora_visita = value($row[7]);
                 if($hora_visita[2] != ':'){
                     $hora_visita = '0'.$hora_visita;
@@ -137,7 +143,7 @@ class EventoImport implements ToCollection
                     ]);
 
                     $cliente->CL_ultima_visita= $fecha_evento;
-                    $numero_visitas = Evento::where('EV_cliente', '=', $cliente->CL_ID)->where('EV_consolidacion', '=','true')->count();
+                    $numero_visitas = Evento::where('EV_cliente', '=', $cliente->CL_ID)->count();
                     $cliente->CL_numero_visitas= $numero_visitas;
                     $visitas_asesor = Evento::where('EV_asesor', '=', $asesor->AS_ID)->count();
                     $asesor->AS_visita = $visitas_asesor;
@@ -151,25 +157,33 @@ class EventoImport implements ToCollection
                             ['EV_consolidacion', '=', '1'],
                             ])->count();
                         $asesor->AS_ventas_total = $numero_ventas;
+
+                        $cliente->CL_porcentaje_ventas = ($cliente->CL_numero_compras / $cliente->CL_numero_visitas)*100    ;
                     }
 
                     $asesor->save();
                     $cliente->save();
-
+                    $contador_registros++;
                     }catch(\Exception $e){
-                    $this->errores[$contador_errores]=$e->getMessage() . 'en la fila numero ' . $contador_filas;
+                        if($e->getCode() == '23000'){
+                            $this->errores[$contador_errores]= 'El evento de la fila '. $contador_filas .' ya se encuentra registrado';
+                        }
+                        elseif(substr($e->getMessage(),0,36) == "Trying to get property of non-object"){
+                            $this->errores[$contador_errores] = 'El asesor o cliente no existen en la fila ' . $contador_filas;
+                        }else{
+                            $this->errores[$contador_errores]=$e->getMessage() . ' en la fila numero ' . $contador_filas;
+                        }
                     report($e);
                     $contador_errores++;
                 }
-                $contador_registros++;
             }
             $contador_filas++;
         }
         if($contador_errores > 0){
-            $this->numero_errores = $contador_errores-1;
+            $this->numero_errores = $contador_errores;
         }
         if($contador_filas > 0){
-            $this->numero_filas = $contador_filas-1;
+            $this->numero_filas = $contador_filas;
         }
         if($contador_registros > 0){
             $this->numero_registros = $contador_registros-1;
@@ -218,3 +232,5 @@ class EventoImport implements ToCollection
         return $hora_completa;
     }
 }
+
+
