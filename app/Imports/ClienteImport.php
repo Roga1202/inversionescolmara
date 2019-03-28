@@ -12,16 +12,18 @@ class ClienteImport implements ToCollection
     
     private $errores = [];
     private $numero_registros = 0;
+    private $numero_filas = 0;
     private $numero_errores = 0;
 
     public function collection(Collection $rows)
     {
         $errores= [];
-        $contador_registros = 0;
+        $contador_filas = 0;
         $contador_errores = 0;
+        $contador_registros = 0;
         foreach ($rows as $row)
         {
-            if ($contador_registros != 0) {
+            if ($contador_filas != 0 and $row[0] != null) {
                 try {
                     Cliente::create([
                         'CL_ID_GEO'=> $row[0],
@@ -42,22 +44,35 @@ class ClienteImport implements ToCollection
                     report($e);
                     $contador_errores++;
                 }
+                $contador_registros++;
             }
-            $contador_registros++;
+            $contador_filas++;
         }
-        $this->numero_errores = $contador_errores-1;
-        $this->numero_registros = $contador_registros-1;
+        if($contador_errores > 0){
+            $this->numero_errores = $contador_errores-1;
+        }
+        if($contador_filas > 0){
+            $this->numero_filas = $contador_filas-1;
+        }
+        if($contador_registros > 0){
+            $this->numero_registros = $contador_registros-1;
+        }
     }
-
+    
     public function getErrores(){
         return $this->errores;
     }
-
+    
     public function getNumberRegister(){
         return $this->numero_registros;
+    }
+
+    public function getNumberFilas(){
+        return $this->numero_filas;
     }
 
     public function getNumberError(){
         return $this->numero_errores;
     }
+
 }

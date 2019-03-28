@@ -1,5 +1,4 @@
 <?php
-//error de largo de row[0]
 //dar a saber que no se encuentra registrado el cliente
 namespace App\Imports;
 
@@ -14,16 +13,18 @@ class EventoImport implements ToCollection
 {
     private $errores = [];
     private $numero_registros = 0;
+    private $numero_filas = 0;
     private $numero_errores = 0;
 
     public function collection(Collection $rows)
     {
         $errores= [];
-        $contador_registros = 0;
+        $contador_filas = 0;
         $contador_errores = 0;
+        $contador_registros = 0;
         foreach ($rows as $row)
         {
-            if ($contador_registros != 0 and $row[0] != null) {
+            if ($contador_filas != 0 and strlen($row[0]) == 24) {
 
                 //fecha
                 $fecha_evento = $row[1].':00';
@@ -42,6 +43,10 @@ class EventoImport implements ToCollection
                 //cliente
                 $cliente= Cliente::where('CL_nombre_completo',$row[3])->first();
                 
+                if( $asesor == null || $cliente == null){
+                    error_log('División por cero.');
+                }
+
                 //hora visita
                 // 1:55:00 AM
                 $hora_visita = value($row[7]);
@@ -112,7 +117,7 @@ class EventoImport implements ToCollection
                     $fecha_proxima_cita = null;
                 }
                 try {
-                    Evento::create([
+                    $evento= Evento::create([
                         'EV_ID_GEO'=> $row[0],
                         'EV_fecha'=> $fecha_evento,
                         'EV_asesor'=> $asesor->AS_ID,
@@ -130,25 +135,57 @@ class EventoImport implements ToCollection
                         'EV_proximo_paso'=> $row[17],
                         'EV_fecha_proxima_cita'=> $fecha_proxima_cita,
                     ]);
+
+                    $cliente->CL_ultima_visita= $fecha_evento;
+                    $numero_visitas = Evento::where('EV_cliente', '=', $cliente->CL_ID)->where('EV_consolidacion', '=','true')->count();
+                    $cliente->CL_numero_visitas= $numero_visitas;
+                    $visitas_asesor = Evento::where('EV_asesor', '=', $asesor->AS_ID)->count();
+                    $asesor->AS_visita = $visitas_asesor;
                     
+                    if($consolidacion == true){
+                        $cliente->CL_ultima_compra= $fecha_evento;
+                        $numero_compras = Evento::where('EV_cliente', '=', $cliente->CL_ID)->where('EV_consolidacion', '=','1')->count();
+                        $cliente->CL_numero_compras = $numero_compras;
+                        $numero_ventas = Evento::where([
+                            ['EV_asesor', '=', $asesor->AS_ID],
+                            ['EV_consolidacion', '=', '1'],
+                            ])->count();
+                        $asesor->AS_ventas_total = $numero_ventas;
+                    }
+
+                    $asesor->save();
+                    $cliente->save();
+
                     }catch(\Exception $e){
-                    $this->errores[$contador_errores]=$e->getMessage() . 'en la fila numero ' . $contador_registros;
+                    $this->errores[$contador_errores]=$e->getMessage() . 'en la fila numero ' . $contador_filas;
                     report($e);
                     $contador_errores++;
                 }
+                $contador_registros++;
             }
-            $contador_registros++;
+            $contador_filas++;
         }
-        $this->numero_errores = $contador_errores-1;
-        $this->numero_registros = $contador_registros-1;
+        if($contador_errores > 0){
+            $this->numero_errores = $contador_errores-1;
+        }
+        if($contador_filas > 0){
+            $this->numero_filas = $contador_filas-1;
+        }
+        if($contador_registros > 0){
+            $this->numero_registros = $contador_registros-1;
+        }
     }
     
     public function getErrores(){
         return $this->errores;
     }
-
+    
     public function getNumberRegister(){
         return $this->numero_registros;
+    }
+
+    public function getNumberFilas(){
+        return $this->numero_filas;
     }
 
     public function getNumberError(){
