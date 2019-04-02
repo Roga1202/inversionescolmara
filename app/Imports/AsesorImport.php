@@ -41,7 +41,11 @@ class AsesorImport implements ToCollection
                         'AS_version_app'=> $row[13],
                     ]);
                 }catch(\Exception $e){
-                    $this->errores[$contador_errores]=$e->getMessage();
+                    if($e->getCode() == '23000'){
+                        $this->errores[$contador_errores]= 'El asesor o telefono de la fila '. $contador_filas .' ya se encuentra registrado';
+                    }else{
+                        $this->errores[$contador_errores]=$e->getMessage() . ' en la fila numero ' . $contador_filas;
+                    }
                     report($e);
                     $contador_errores++;
                 }
@@ -50,10 +54,10 @@ class AsesorImport implements ToCollection
             $contador_filas++;
         }
         if($contador_errores > 0){
-            $this->numero_errores = $contador_errores-1;
+            $this->numero_errores = $contador_errores;
         }
         if($contador_filas > 0){
-            $this->numero_filas = $contador_filas-1;
+            $this->numero_filas = $contador_filas;
         }
         if($contador_registros > 0){
             $this->numero_registros = $contador_registros-1;

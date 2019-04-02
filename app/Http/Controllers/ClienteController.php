@@ -12,6 +12,7 @@ class ClienteController extends Controller
     public function post_importar_cliente(){
         $importacion = new ClienteImport;
         Excel::import($importacion, 'cliente.xlsx');
+        dd($importacion);
         $numero_errores= $importacion->getNumberError();
         $numero_registros = $importacion->getNumberRegister();
         return redirect('/proceso')->with([

@@ -156,10 +156,26 @@ class EventoImport implements ToCollection
                             ['EV_asesor', '=', $asesor->AS_ID],
                             ['EV_consolidacion', '=', '1'],
                             ])->count();
-                        $asesor->AS_ventas_total = $numero_ventas;
+                                            
+                        $compra_cliente = Evento::where([
+                            ['EV_cliente', '=', $cliente->CL_ID],
+                            ['EV_consolidacion', '=', '1'],
+                            ])->pluck('EV_dinero_abono');
+                            $total = 0;
+                            foreach ($compra_cliente as $valor) {
+                                $total = $total + $valor;
+                            }
+                            $cliente->CL_dinero_total = $total;
 
-                        $cliente->CL_porcentaje_ventas = ($cliente->CL_numero_compras / $cliente->CL_numero_visitas)*100    ;
-                    }
+                            $asesor->AS_ventas_total = $numero_ventas;
+
+                            if($cliente->CL_numero_compras != 0 && $cliente->CL_numero_visitas != 0){
+                                $cliente->CL_porcentaje_ventas = ($cliente->CL_numero_compras / $cliente->CL_numero_visitas)*100    ;
+                            }
+                            if($asesor->AS_ventas_total != 0 && $asesor->AS_visita != 0){
+                                $asesor->AS_porcentaje_ventas = ($asesor->AS_ventas_total / $asesor->AS_visita)*100;
+                            }
+                        }
 
                     $asesor->save();
                     $cliente->save();

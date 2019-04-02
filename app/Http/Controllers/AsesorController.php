@@ -13,6 +13,7 @@ class AsesorController extends Controller
     public function post_importar_asesor(){
         $importacion=new AsesorImport;
         Excel::import($importacion,'asesor.xlsx');
+        dd($importacion);
         $numero_errores= $importacion->getNumberError();
         $numero_registros = $importacion->getNumberRegister();
         return redirect('/proceso')->with([

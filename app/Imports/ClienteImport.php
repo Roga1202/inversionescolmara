@@ -40,7 +40,11 @@ class ClienteImport implements ToCollection
                         'CL_correo'=> $row[13]
                     ]);
                 }catch(\Exception $e){
-                    $this->errores[$contador_errores]=$e->getMessage();
+                    if($e->getCode() == '23000'){
+                        $this->errores[$contador_errores]= 'El cliente de la fila '. $contador_filas .' ya se encuentra registrado';
+                    }else{
+                        $this->errores[$contador_errores]=$e->getMessage() . ' en la fila numero ' . $contador_filas;
+                    }
                     report($e);
                     $contador_errores++;
                 }
