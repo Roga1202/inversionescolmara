@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> --}}
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/home.css') }}">
+    
     {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> --}}
     <script src="{{ asset('assets/js/jquery-3.3.1.min.js') }}"></script>
     {{-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> --}}
@@ -19,38 +19,92 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script> <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
     </head>
     <body>
     <header>
-    <nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-
-    <a class="navbar-brand" style="color: white;" href="/home"><i style='font-size:24px' class='fas'>&#xf0b1;</i> Inversiones JL</a>
-    
-    <a href="/" style="color: white;" id="salir"><i style='font-size:18px;' class='fas'>&#xf023;</i> Salir</a>
+   <nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header-rigth">
+      <a class="navbar-brand" href="#">Inversiones Colmara Ltda</a>
     </div>
+     
+    <form class="navbar-form navbar-left" action="#">
+      <div class="input-group" style="size: 50px;">
+        <input type="text" class="form-control"  placeholder="Buscar" name="search">
+        <div class="input-group-btn">
+          <button class="btn btn-primary" type="submit">
+            <i class="glyphicon glyphicon-search"></i>
+          </button>
+        </div>
+      </div>
+    </form>
+    <div class="navbar-header-left">
+      <a class="navbar-brand" href="/">Salir</a>
+    </div>
+  </div>
  
-    </nav>
+</nav>
+
     </header>
 
     <tbody>
     <div class="container-fluid text-center">    
     <div class="row content">
-    <div class="col-sm-2 sidenav">
-    <p><a href="/categoria/index" style="color: black;"><span class="glyphicon glyphicon-level-up"></span>Categorias</a></p>
-    <p><a href="/cliente/index" style="color: black;"><span class="glyphicon glyphicon-user"></span>Clientes</a></p>
-    <p><a href="/producto/index" style="color: black;"><span class="glyphicon glyphicon-baby-formula"></span>Productos</a></p>
-    <p><a href="/factura/index" style="color: black;"><span class="glyphicon glyphicon-print"></span>Facturas</a></p>
-    </div>
+   <!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="estilo.css">
+    <meta charset="UTF-8">
+    <title>Proceso</title>
+</head>
+<body>
+
+ <nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+   
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Inicio</a></li>
+      <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Titulo 1
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="#">Substitulo 1</a></li>
+          <li><a href="#">Substitulo 2</a></li>
+          <li><a href="#">Substitulo 3</a></li>
+        </ul>
+      </li>
+     <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Titulo 2
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="#">Substitulo 1</a></li>
+          <li><a href="#">Substitulo 2</a></li>
+          <li><a href="#">Substitulo 3</a></li>
+        </ul>
+      </li>
+     <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Titulo 3
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="#">Substitulo 1</a></li>
+          <li><a href="#">Substitulo 2</a></li>
+          <li><a href="#">Substitulo 3</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</nav> 
+
+</body>
+</html>
 
     <div class="col-sm-8 text-left">
     @yield('block')
     </div>
     <div class="col-sm-2 sidenav">
-    <div style="text-align:center;padding:1em 0;"> <h4><a style="text-decoration:none;" href="https://www.zeitverschiebung.net/es/country/ve"><span style="color:gray;">Hora actual en</span><br />Venezuela</a></h4> <iframe src="https://www.zeitverschiebung.net/clock-widget-iframe-v2?language=es&size=small&timezone=America%2FCaracas" width="100%" height="90" frameborder="0" seamless></iframe> </div>
-        <div class="well" id="logo1">
-        <p id="logo">.</p>
-        </div>
+    <div style="text-align:center;padding:1em 0;"> <h4><a style="text-decoration:none;" href="https://www.zeitverschiebung.net/es/country/ve"><span style="color:gray;">Hora actual en</span><br />Colombia</a></h4> <iframe src="https://www.zeitverschiebung.net/clock-widget-iframe-v2?language=es&size=small&timezone=America%2FBogota" width="100%" height="90" frameborder="0" seamless></iframe> </div>
+        
         </div>
         </div>
         </div>
