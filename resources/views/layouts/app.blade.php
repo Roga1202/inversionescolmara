@@ -4,13 +4,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
+	  <link rel="shortcut icon" href="{{ asset('assets/img/logo.jpg')}}"/>
     <link rel='stylesheet' href="{{ asset('assets/css/all.css') }}" integrity='sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/' crossorigin='anonymous'>
     <link href='{{asset('assets/css/fonts-material-icons.css')}}' rel='stylesheet' type='text/css'>
     <link href='{{asset('assets/css/fonts-roboto.css')}}' rel='stylesheet' type='text/css'>
     {{-- <link rel="stylesheet" href="{{ asset('assets/font-awesome/css/font-awesome.min.css') }}"> --}}
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/bootstrap.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/bootstap3_4/bootstrap.min.css') }}">
-	  <link rel="shortcut icon" href="{{ asset('assets/img/logo.jpg')}}"/>
 
     <script src="{{ asset('assets/js/jquery-3.3.1.min.js') }}"></script>
     <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
@@ -24,7 +24,7 @@
         <nav class="navbar navbar-inverse">
           <div class="container-fluid">
             <div class="navbar-header-rigth">
-              <a class="navbar-brand" href="#">Inversiones Colmara Ltda</a>
+              <a class="navbar-brand" href="proceso">Inversiones Colmara Ltda</a>
             </div>
             <form class="navbar-form navbar-left" action="#">
               <div class="input-group" style="size: 50px;">
@@ -52,22 +52,22 @@
                   <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">Asesor</a>
                     <ul class="dropdown-menu">
-                      <li><a href="#">Ver Archivos</a></li>
-                      <li><a href="#">Ver Asesores</a></li>
+                      <li><a href="asesores">Ver</a></li>
+                      <li><a href="archivos/asesores">Archivos</a></li>
                     </ul>
                   </li>
                   <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">Cliente</a>
                       <ul class="dropdown-menu">
-                        <li><a href="#">Ver Archivos</a></li>
-                        <li><a href="#">Ver Clietes</a></li>
+                        <li><a href="clientes">Ver</a></li>
+                        <li><a href="archivos/clientes">Archivos</a></li>
                       </ul>
                   </li>
                   <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">Evento</a>
                     <ul class="dropdown-menu">
-                      <li><a href="#">Ver Archivos</a></li>
-                      <li><a href="#">Ver Eventos</a></li>
+                      <li><a href="eventos">Ver</a></li>
+                      <li><a href="archivos/clientes">Archivos</a></li>
                     </ul>
                   </li>
                 </ul>

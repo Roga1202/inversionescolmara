@@ -13,8 +13,17 @@
 
 Route::get('/','IndexController@get_index');
 
-Route::get('/proceso','IndexController@get_home');
+Route::get('proceso','IndexController@get_home');
 
-Route::get('/importar/cliente','ClienteController@post_importar_cliente');
-Route::get('/importar/asesor','AsesorController@post_importar_asesor');
-Route::get('/importar/evento','EventoController@post_importar_evento');
+Route::get('asesores','AsesorController@get_asesores');
+Route::get('archivos/asesor','AsesorController@get_archivos');
+Route::post('importar/asesor','AsesorController@post_importar_asesor');
+
+Route::get('clientes','ClienteController@get_clientes');
+Route::get('archivos/cliente','ClienteController@get_archivos');
+Route::post('importar/cliente','ClienteController@post_importar_asesor');
+
+Route::get('eventos','EventoController@get_eventos');
+Route::get('archivos/evento','EventoController@get_archivos');
+Route::post('importar/evento','EventoController@post_importar_asesor');
+
