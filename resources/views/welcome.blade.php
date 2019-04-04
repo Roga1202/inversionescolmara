@@ -15,10 +15,10 @@
 
   <!-- Custom fonts for this template -->
   <link href="{{asset('vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-  <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
-  <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-  <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+  <link href="{{asset('assets/css/fonts-Montserrat.css')}}" rel="stylesheet" type="text/css">
+  <link href='{{asset('assets/css/fonts-Kaushan-script.css')}}' rel='stylesheet' type='text/css'>
+  <link href='{{asset('assets/css/fonts-Droid-serif.css')}}' rel='stylesheet' type='text/css'>
+  <link href='{{asset('assets/css/fonts-roboto.css')}}' rel='stylesheet' type='text/css'>
 
   <!-- Custom styles for this template -->
   <link href="css/agency.min.css" rel="stylesheet">
@@ -37,7 +37,7 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav text-uppercase ml-auto">
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="/proceso">Proceso</a>
+            <a class="nav-link js-scroll-trigger" href="proceso">Proceso</a>
           </li>
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="#services">Servicios</a>
