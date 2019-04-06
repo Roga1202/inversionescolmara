@@ -39,6 +39,7 @@ class ClienteImport implements ToCollection
                         'CL_telefono'=> $row[12],
                         'CL_correo'=> $row[13]
                     ]);
+                    $contador_registros++;
                 }catch(\Exception $e){
                     if($e->getCode() == '23000'){
                         $this->errores[$contador_errores]= 'El cliente de la fila '. $contador_filas .' ya se encuentra registrado';
@@ -48,15 +49,14 @@ class ClienteImport implements ToCollection
                     report($e);
                     $contador_errores++;
                 }
-                $contador_registros++;
             }
             $contador_filas++;
         }
         if($contador_errores > 0){
-            $this->numero_errores = $contador_errores-1;
+            $this->numero_errores = $contador_errores;
         }
         if($contador_filas > 0){
-            $this->numero_filas = $contador_filas-1;
+            $this->numero_filas = $contador_filas;
         }
         if($contador_registros > 0){
             $this->numero_registros = $contador_registros-1;

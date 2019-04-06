@@ -6,8 +6,8 @@
     
 	  <link rel="shortcut icon" href="{{ asset('assets/img/logo.jpg')}}"/>
     <link rel='stylesheet' href="{{ asset('assets/css/all.css') }}" integrity='sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/' crossorigin='anonymous'>
-    <link href='{{asset('assets/css/fonts-material-icons.css')}}' rel='stylesheet' type='text/css'>
-    <link href='{{asset('assets/css/fonts-roboto.css')}}' rel='stylesheet' type='text/css'>
+    <link href="{{ asset('assets/css/fonts-material-icons.css')}}" rel='stylesheet' type='text/css'>
+    <link href="{{ asset('assets/css/fonts-roboto.css')}}" rel='stylesheet' type='text/css'>
     {{-- <link rel="stylesheet" href="{{ asset('assets/font-awesome/css/font-awesome.min.css') }}"> --}}
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/bootstrap.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/bootstap3_4/bootstrap.min.css') }}">

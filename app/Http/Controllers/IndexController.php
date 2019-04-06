@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Asesor;
+use App\Cliente;
+use App\Evento;
 
 class IndexController extends Controller
 {

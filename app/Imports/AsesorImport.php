@@ -40,6 +40,7 @@ class AsesorImport implements ToCollection
                         'AS_ultimo_reporte'=> $row[11],
                         'AS_version_app'=> $row[13],
                     ]);
+                    $contador_registros++;
                 }catch(\Exception $e){
                     if($e->getCode() == '23000'){
                         $this->errores[$contador_errores]= 'El asesor o telefono de la fila '. $contador_filas .' ya se encuentra registrado';
@@ -49,7 +50,6 @@ class AsesorImport implements ToCollection
                     report($e);
                     $contador_errores++;
                 }
-                $contador_registros++;
             }
             $contador_filas++;
         }

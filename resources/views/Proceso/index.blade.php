@@ -18,4 +18,20 @@
     </div>     
   @endif
 @endif
+<form action="importar/asesor" method="post" enctype="multipart/form-data">
+  {{ csrf_field() }}
+  <input name="asesor" id="asesor" class="form-control" accept="xlsx" type="file"/>
+  <input type="submit" class="btn btn-primary" value="Guardar">
+</form>
+<form action="importar/cliente" method="post" enctype="multipart/form-data">
+  {{ csrf_field() }}
+  <input name="cliente" id="cliente" class="form-control" accept="xlsx" type="file"/>
+  <input type="submit" class="btn btn-primary" value="Guardar">
+</form>
+<form action="importar/evento" method="post" enctype="multipart/form-data">
+  {{ csrf_field() }}
+  <input name="evento" id="evento" class="form-control" accept="xlsx" type="file"/>
+  <input type="submit" class="btn btn-primary" value="Guardar">
+</form>
+
 @endsection
