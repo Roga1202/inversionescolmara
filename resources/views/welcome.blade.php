@@ -18,9 +18,9 @@
   <!-- Custom fonts for this template -->
   <link href="{{asset('vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
   <link href="{{asset('assets/css/fonts-Montserrat.css')}}" rel="stylesheet" type="text/css">
-  <link href='{{asset('assets/css/fonts-Kaushan-script.css')}}' rel='stylesheet' type='text/css'>
-  <link href='{{asset('assets/css/fonts-Droid-serif.css')}}' rel='stylesheet' type='text/css'>
-  <link href='{{asset('assets/css/fonts-roboto.css')}}' rel='stylesheet' type='text/css'>
+  <link href="{{asset('assets/css/fonts-Kaushan-script.css')}}" rel='stylesheet' type='text/css'>
+  <link href="{{asset('assets/css/fonts-Droid-serif.css')}}" rel='stylesheet' type='text/css'>
+  <link href="{{asset('assets/css/fonts-roboto.css')}}" rel='stylesheet' type='text/css'>
 
   <!-- Custom styles for this template -->
   <link href="css/agency.min.css" rel="stylesheet">
@@ -391,24 +391,16 @@ Contamos con un equipo altamente calificado para ayudar a nuestros clientes a so
   <div class="container">
     <div class="row">
       <div class="col-md-3 col-sm-6">
-        <a href="#">
-          <img class="img-fluid d-block mx-auto" src="img/marca/1.png" alt="">
-        </a>
+        <img class="img-fluid d-block mx-auto" src="img/marca/1.png" alt="">
       </div>
       <div class="col-md-3 col-sm-6">
-        <a href="#">
-          <img class="img-fluid d-block mx-auto" src="img/marca/2.png" alt="">
-        </a>
+        <img class="img-fluid d-block mx-auto" src="img/marca/2.png" alt="">
       </div>
       <div class="col-md-3 col-sm-6">
-        <a href="#">
-          <img class="img-fluid d-block mx-auto" src="img/marca/3.png" alt="">
-        </a>
+        <img class="img-fluid d-block mx-auto" src="img/marca/3.png" alt="">
       </div>
       <div class="col-md-3 col-sm-6">
-        <a href="#">
-          <img class="img-fluid d-block mx-auto" src="img/marca/4.png" alt="">
-        </a>
+        <img class="img-fluid d-block mx-auto" src="img/marca/4.png" alt="">
       </div>
 
 <div class="col-md-3 col-sm-6">
@@ -433,26 +425,17 @@ Contamos con un equipo altamente calificado para ayudar a nuestros clientes a so
       </div>
 
       <div class="col-md-3 col-sm-6">
-        <a href="#">
-          <img class="img-fluid d-block mx-auto" src="img/marca/5.png" alt="">
-        </a>
+        <img class="img-fluid d-block mx-auto" src="img/marca/5.png" alt="">
       </div>
       <div class="col-md-3 col-sm-6">
-        <a href="#">
-          <img class="img-fluid d-block mx-auto" src="img/marca/6.png" alt="">
-        </a>
+        <img class="img-fluid d-block mx-auto" src="img/marca/6.png" alt="">
       </div>
       <div class="col-md-3 col-sm-6">
-        <a href="#">
-          <img class="img-fluid d-block mx-auto" src="img/marca/7.png" alt="">
-        </a>
+        <img class="img-fluid d-block mx-auto" src="img/marca/7.png" alt="">
       </div>
       <div class="col-md-3 col-sm-6">
-        <a href="#">
-          <img class="img-fluid d-block mx-auto" src="img/marca/8.png" alt="">
-        </a>
-      </div>
-      
+        <img class="img-fluid d-block mx-auto" src="img/marca/8.png" alt="">
+      </div>  
     </div>
   </div>
 </section>
