@@ -13,19 +13,10 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/bootstap3_4/bootstrap.min.css') }}">
     
     
-<!-- Bootstrap core JavaScript -->
-<script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
-<script src="{{asset('vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
+    <script src="{{asset('vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 
-<!-- Plugin JavaScript -->
-<script src="{{asset('vendor/jquery-easing/jquery.easing.min.js')}}"></script>
-
-<!-- Contact form JavaScript -->
-<script src="{{asset('js/jqBootstrapValidation.js')}}"></script>
-<script src="{{asset('js/contact_me.js')}}"></script>
-
-<!-- Custom scripts for this template -->
-<script src="{{asset('js/agency.min.js')}}"></script>
 
     <script src="{{ asset('assets/js/jquery-3.3.1.min.js') }}"></script>
     <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>

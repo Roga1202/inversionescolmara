@@ -11,7 +11,9 @@ use App\Cliente;
 class ClienteController extends Controller
 {
     public function get_clientes(){
-        $clientes = Cliente::orderBy('CL_ID','ASC')->paginate(15);
+        
+        $clientes = Cliente::all();
+
         return view('cliente.index',[
             'clientes' => $clientes,
         ]);

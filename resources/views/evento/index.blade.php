@@ -23,14 +23,38 @@
                     <td class="text-center">{{ $evento['EV_ID'] }}</td>
                     <td class="text-center">{{ $evento['EV_asesor'] }}</td>
                     <td class="text-center">{{ $evento['EV_cliente'] }}</td>
-                    <form action="/evento/eliminar/{{$evento['CL_ID']}}" method="GET" >
-                        {{ csrf_field() }}
-                        <td class="text-center"> <a href="/evento/actualizar/{{$evento['CL_ID']}}" class="btn btn-info btn-sm">Actualizar</a> </td>
-                        <td class="text-center"><button type="submit" class='btn btn-danger btn-sm'>Eliminar</button></td>
-                    </form>    
+                    <td class="text-center"><button type="button" data-toggle="modal" data-target="#modal" class="btn btn-info btn-sm">Ver</button> </td>
+                    <td class="text-center"><button type="submit" class='btn btn-danger btn-sm'>Eliminar</button></td>  
                 </tr>       
             @endforeach
         </tbody>
     </table>
 </div>
+<div class="modal" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <button type="button" class="close cerrarModal" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+@endsection
+@section('script')
+
+<script>
+$(".cerrarModal").click(function(){
+  $("#modal").modal('hide')
+});
+</script>
 @endsection

@@ -11,7 +11,7 @@ use App\Http\Controllers\Controller;
 class AsesorController extends Controller
 {
     public function get_asesores(){
-        $asesores = Asesor::orderBy('AS_ID','DESC')->paginate(15);
+        $asesores = Asesor::all();
         return view('asesor.index',[
             'asesores' => $asesores,
         ]);

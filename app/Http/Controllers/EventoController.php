@@ -13,7 +13,14 @@ use App\Evento;
 class EventoController extends Controller
 {
     public function get_eventos(){
-        $eventos = Evento::orderBy('EV_ID','ASC')->paginate(15);
+
+        $eventos = Evento::all();
+
+        foreach ($eventos as $evento) {
+            $evento['EV_cliente'] = $evento->Cliente->CL_nombre_completo;
+            $evento['EV_asesor'] = $evento->Asesor->AS_nombre;
+        }
+
         return view('evento.index',[
             'eventos' => $eventos,
         ]);
