@@ -44,11 +44,11 @@ class EventoImport implements ToCollection
                 
                 if($asesor == null || $cliente == null){
                     if($asesor == null){
-                        $message = 'El asesor no existe.';
+                        $message = 'El asesor no existe. ' + $row[2];
                     }elseif($cliente == null){
-                        $message = 'El cliente no existe.';
+                        $message = 'El cliente no existe. ';
                     }else{
-                        $message = 'El cliente y asesor no existen.';
+                        $message = 'El cliente y asesor no existen. Asesor ' + $row[2] + ' Cliente ' + $row[3];
                     }
                     \Log::error($message);
                 }

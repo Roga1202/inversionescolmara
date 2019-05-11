@@ -27,7 +27,6 @@ class CrearCliente extends Migration
             $table->integer('CL_numero_visitas')->nullable()->default(0);
             $table->dateTime('CL_ultima_visita')->nullable();
             $table->string('CL_correo',50)->nullable();
-            $table->string('CL_credencial',50)->unique()->nullable();
             $table->string('CL_NIT',50)->nullable()->unique();
             $table->string('CL_direccion');
             $table->string('CL_direccion_descripcion')->nullable();
@@ -39,7 +38,6 @@ class CrearCliente extends Migration
             $table->integer('CL_dinero_total')->unsigned()->nullable()->default(0);
             $table->integer('CL_dinero_deuda')->unsigned()->nullable()->default(0);
             $table->float('CL_porcentaje_ventas',20)->unsigned()->default(0);
-            $table->boolean('CL_perfil')->default(false);
 
 
             $table->timestamp('CL_inicio')->default(\DB::raw('CURRENT_TIMESTAMP'));
