@@ -26,6 +26,8 @@ class ArchivoController extends Controller
             $validar= Excel::import($importacion,$archivo);
             $numero_errores= $importacion->getNumberError();
             $numero_registros = $importacion->getNumberRegister();
+            $errores = $importacion->getErrores;
+            dd($validar);
             $nombre = $archivo->getClientOriginalName();
             $now = new \DateTime();
             $now = $now->format('d_m_Y_H_i_s');
@@ -33,9 +35,14 @@ class ArchivoController extends Controller
             $archivo->storeAs( 
                 "asesores", $nombre
             );
+
+            if($numero_errores == null){
+                $notificacion == True;
+            }
             return redirect('/proceso')->with([
                 'numero_errores' => $numero_errores,
                 'numero_registros' => $numero_registros,
+                'notificacion' => $notificacion,
             ]);
         } catch (\Exception $e) {
             $error = $e->getMessage();

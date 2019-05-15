@@ -33,3 +33,8 @@ Route::delete('evento/eliminar/{id}', 'EventoController@posteliminar')->where('i
 Route::get('/cliente/{id}', 'ClienteController@getcliente')->where('id', '[0-9]+');
 Route::delete('cliente/eliminar/{id}', 'ClienteController@posteliminar')->where('id', '[0-9]+');
 Route::get('cliente/actualizar/{id}', 'ClienteController@postactualizar')->where('id', '[0-9]+');
+
+
+Route::get('/asesor/{id}', 'AsesorController@getasesor')->where('id', '[0-9]+');
+Route::delete('asesor/eliminar/{id}', 'AsesorController@posteliminar')->where('id', '[0-9]+');
+Route::get('asesor/actualizar/{id}', 'AsesorController@postactualizar')->where('id', '[0-9]+');

@@ -30,18 +30,9 @@ class CrearAsesor extends Migration
             $table->float('AS_porcentaje_ventas')->unsigned()->default(0);
             $table->integer('AS_visita')->unsigned()->default(0);
 
-            //Telefono
             $table->string('AS_IMEI')->unique();
             $table->string('AS_grupo',50)->nulleable();
-            $table->string('AS_fabricante_tlf');
-            $table->string('AS_modelo_tlf',50);
-            $table->string('AS_OS_tlf',10);
             $table->string('AS_alias',50)->unique();
-            $table->string('AS_estado',50);
-            $table->string('AS_ultima_fecha')->default(0);
-            $table->time('AS_ultima_hora')->default('00:00:00');
-            $table->string('AS_ultimo_reporte')->default(0);
-            $table->string('AS_version_app',50)->default(0);
 
 
 

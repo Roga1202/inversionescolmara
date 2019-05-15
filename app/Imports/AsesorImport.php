@@ -30,15 +30,7 @@ class AsesorImport implements ToCollection
                         'AS_IMEI'=> $row[0],
                         'AS_grupo'=> $row[1],
                         'AS_telefono'=> $row[3],
-                        'AS_fabricante_tlf'=>$row[4],
-                        'AS_modelo_tlf'=> $row[5],
-                        'AS_OS_tlf'=> $row[6],
                         'AS_alias'=> $row[7],
-                        'AS_estado'=> intval($row[8]),
-                        'AS_ultima_fecha'=> $row[9],
-                        'AS_ultima_hora'=> $row[10],
-                        'AS_ultimo_reporte'=> $row[11],
-                        'AS_version_app'=> $row[13],
                     ]);
                     $contador_registros++;
                 }catch(\Exception $e){

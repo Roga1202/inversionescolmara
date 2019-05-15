@@ -13,9 +13,12 @@
       @endif
     </div>
   @else
+  @endif
+@else
+  @if(session('notificacion'))
     <div class="alert alert-success" role="alert">
         Numero de registros {{ session('numero_registros') }}.Se ha guardado todo con exito.
-    </div>     
+    </div>
   @endif
 @endif
 <br>

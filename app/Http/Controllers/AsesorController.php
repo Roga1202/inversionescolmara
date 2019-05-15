@@ -16,6 +16,15 @@ class AsesorController extends Controller
             'asesores' => $asesores,
         ]);
 
+    } 
+
+    public function getasesor(Request $request)
+    {
+        if($request->ajax()){
+            $id = $request->id;
+            $info = Asesor::find($id);
+            return response()->json($info);
+        }
     }
 
 }

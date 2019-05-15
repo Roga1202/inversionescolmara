@@ -12,7 +12,7 @@ class IndexController extends Controller
     //
     
     public function get_index(){
-        return view('welcome');
+        return view('index');
     }
     
     public function get_home(){
