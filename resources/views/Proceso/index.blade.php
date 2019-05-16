@@ -21,16 +21,15 @@
     </div>
   @endif
 @endif
-<br>
-<br>
-<br>
-<br>
-<br>
+<h2 class="page-header text-center">Exporte en XLSX </h2>
 <div class="col-sm-10">
   <form action="importar" method="post" enctype="multipart/form-data">
     {{ csrf_field() }}
+    <h3 class="text-center">Asesor</h3>
     <input name="asesor" id="asesor" class="form-control" accept="xlsx" type="file"/>
+    <h3 class="text-center">Cliente</h3>
     <input name="cliente" id="cliente" class="form-control" accept="xlsx" type="file"/>
+    <h3 class="text-center">Formulario Rutero Mayor</h3>
     <input name="evento" id="evento" class="form-control" accept="xlsx" type="file"/>
     <input type="submit" class="btn btn-primary" value="Guardar">
   </form>

@@ -13,7 +13,7 @@ class ClienteController extends Controller
 {
     public function get_clientes(){
         
-        $clientes = Cliente::all();
+        $clientes = Cliente::orderBy('CL_porcentaje_ventas','desc')->get();
 
         return view('cliente.index',[
             'clientes' => $clientes,

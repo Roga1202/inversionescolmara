@@ -56,14 +56,14 @@
                           <li><a href="asesores">Asesor</a></li>
                           <li><a href="clientes">Cliente</a></li>
                           <li><a href="eventos">Evento</a></li>
-                          <li class="dropdown">
+                          <!-- <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">Archivos</a>
                             <ul class="dropdown-menu">
                               <li><a href="arcjos/asesores">Asesor</a></li>
                               <li><a href="archivos/clientes">Cliente</a></li>
                               <li><a href="archivos/eventos">Evento</a></li>
                             </ul>
-                          </li>
+                          </li> -->
                         </ul>
                       </div>
                     </nav>

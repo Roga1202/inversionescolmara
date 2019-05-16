@@ -21,21 +21,28 @@ class ArchivoController extends Controller
             $archivo = $request->file('evento');
             $importacion=new EventoImport;
         }
-        
         try {
             $validar= Excel::import($importacion,$archivo);
             $numero_errores= $importacion->getNumberError();
             $numero_registros = $importacion->getNumberRegister();
             $errores = $importacion->getErrores;
-            dd($validar);
             $nombre = $archivo->getClientOriginalName();
             $now = new \DateTime();
             $now = $now->format('d_m_Y_H_i_s');
             $nombre = $now . '_' . $nombre;
-            $archivo->storeAs( 
-                "asesores", $nombre
-            );
-
+            if ($request->file('asesor')) {
+                $archivo->storeAs( 
+                    "asesores", $nombre
+                );
+            }elseif($request->file('cliente')){
+                $archivo->storeAs( 
+                    "clientes", $nombre
+                );
+            }elseif($request->file('evento')){
+                $archivo->storeAs( 
+                    "eventos", $nombre
+                );
+            }
             if($numero_errores == null){
                 $notificacion == True;
             }

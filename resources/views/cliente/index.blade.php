@@ -19,8 +19,10 @@
                 <th style="" class="text-center">ID</th>
                 <th style="" class="text-center">Nombre</th>
                 <th style="" class="text-center">Ref</th>
-                <th style="" class="text-center">Grupo</th>
+                <th style="" class="text-center">Compras</th>
+                <th style="" class="text-center">Visitas</th>
                 <th style="" class="text-center">Porcentaje Ventas</th>
+                <th style="" class="text-center">Dinero total</th>
                 <th style="" class="text-center">Acciones</th>
             </tr>
         </thead>
@@ -30,8 +32,10 @@
                     <td class="text-center">{{ $cliente['CL_ID'] }}</td>
                     <td class="text-center" width="3">{{ $cliente['CL_nombre_completo'] }}</td>
                     <td class="text-center">{{ $cliente['CL_referencia'] }}</td>
-                    <td class="text-center">{{ $cliente['CL_grupo'] }}</td>
+                    <td class="text-center">{{ $cliente['CL_numero_compras'] }}</td>
+                    <td class="text-center">{{ $cliente['CL_numero_visitas'] }}</td>
                     <td class="text-center">{{ $cliente['CL_porcentaje_ventas'] }} %</td>
+                    <td class="text-center">{{ $cliente['CL_dinero_total'] }}</td>
                     <td class="text-center">
                       <button class="btn btn-info" data-toggle="modal" data-target="#viewModal" onclick="fun_view('{{$cliente['CL_ID']}}')">Ver</button>
                       <button class="btn btn-warning" data-toggle="modal" data-target="#editModal" onclick="fun_edit('{{$cliente['CL_ID']}}')">Editar</button>

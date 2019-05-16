@@ -48,41 +48,32 @@ function fun_view($id)
             $("#view_correo").text("No posee correo registrado");
           }
 
-          if (result.AS_visita != 0) {
+          if (result.AS_visita) {
             $("#view_visitas").text(result.AS_visita);
-
-            if (result.AS_ventas_total != 0) {
-
-              document.getElementById("ventas_total").style.display = "block";
-              $("#view_ventas_total").text(result.AS_ventas_total);
-              
-            } else {
-              document.getElementById("ventas_total").style.display = "none";
-              $("#view_ventas_total").text("No posee ventas registradas");
-            }
-  
-            if (result.AS_ventas_total_mes != 0) {
-
-              $("#view_ventas_mes").text(result.AS_ventas_total_mes);
-              document.getElementById("ventas_mes").style.display = "block";
-            } else {
-
-              document.getElementById("ventas_mes").style.display = "none";
-              $("#view_ventas_mes").text("No posee ventas registradas");
-            }
-  
-            if (result.AS_porcentaje_ventas != 0) {
-
-              document.getElementById("porcentaje").style.display = "block";
-              $("#view_porcentaje").text(result.AS_porcentaje_ventas + '%');
-            } else {
-
-              document.getElementById("porcentaje").style.display = "none";
-              $("#view_porcentaje").text("No posee ventas registradas");
-            }
-
           } else {
             $("#view_visitas").text("No posee visitas registradas");
+          }
+
+          if (result.AS_ventas_total) {
+            $("#view_ventas_total").text(result.AS_ventas_total);
+          } else {
+            $("#view_ventas_total").text("No posee ventas registradas");
+          }
+
+          if (result.AS_ventas_total_mes) {
+            $("#view_ventas_mes").text(result.AS_ventas_total_mes);
+            document.getElementById("ventas_mes").style.display = "block";
+          } else {
+            document.getElementById("ventas_mes").style.display = "none";
+            $("#view_ventas_mes").text("No posee ventas registradas");
+          }
+
+          if (result.AS_porcentaje_ventas) {
+            document.getElementById("porcentaje").style.display = "block";
+            $("#view_porcentaje").text(result.AS_porcentaje_ventas  + ' %');
+          } else {
+            document.getElementById("porcentaje").style.display = "none";
+            $("#view_porcentaje").text("No posee ventas registradas");
           }
           
           if (result.AS_alias) {
@@ -106,7 +97,7 @@ function fun_view($id)
  
     function fun_edit($id)
     {
-      var view_url = '/cliente/'+$id;
+      var view_url = '/asesor/'+$id;
       $.ajax({
         url: view_url,
         type:'GET',
@@ -114,16 +105,26 @@ function fun_view($id)
         async: true,
         success: function(result){
 
-          $("#edit_ID").val(result.CL_ID);
-
-          $("#edit_nombre").val(result.CL_nombre_completo);
-
-          $("#edit_referencia").val(result.CL_referencia);
-
-          $("#edit_NIT").val(result.CL_NIT); 
-    
-          $("#edit_direccion").val(result.CL_direccion);
+          $("#edit_ID").val(result.AS_ID);
           
+          $("#edit_nombre").val(result.AS_nombre);
+          
+          $("#edit_cedula").val(result.AS_cedula);
+
+          $("#edit_tipo").val(result.AS_tipo); 
+    
+          $("#edit_direccion").val(result.AS_direccion);
+
+          $("#edit_telefono").val(result.AS_telefono);
+
+          $("#edit_telefono_emergencia").val(result.AS_telefono_emergencia);
+          
+          $("#edit_correo").val(result.AS_correo);
+
+          $("#edit_IMEI").val(result.AS_IMEI);
+
+          $("#edit_alias").val(result.AS_alias);
+
         }
       });
     }
@@ -132,24 +133,31 @@ function fun_view($id)
   
     $('.modal-footer').on('click', '.updated', function() {
       var id = $("#edit_ID").val();
-      var referencia = $("#edit_referencia").val();
-      var nit = $("#edit_NIT").val();
+      var cedula = $("#edit_cedula").val();
+      var tipo = $("#edit_tipo").val();
       var direccion = $("#edit_direccion").val();
+      var telefono = $("#edit_telefono").val();
+      var telefono_emergencia = $("#edit_telefono_emergencia").val();
+      var correo = $("#edit_correo").val();
+      var imei = $("#edit_IMEI").val();
+      alert(imei);
+      var alias = $("#edit_alias").val();
+
       $.ajax({
           type: "GET",
-          url: 'cliente/actualizar/' + id,
-          data: {referencia:referencia,nit:nit,direccion:direccion},
+          url: 'asesor/actualizar/' + id,
+          data: {cedula:cedula,tipo:tipo,direccion:direccion,telefono:telefono,telefono_emergencia:telefono_emergencia,correo:correo,imei:imei,alias:alias},
           success: function(data) {
-            alert("Cliente actualizado con exito");
+            alert("Asesor actualizado con exito");
           },
         }).fail( function(jxXHR,textStatus,errorThrown){
-          alert("No se pudo guardar el cliente , revise los valores");
+          alert("No se pudo guardar el asesor , revise los valores");
       });
     });
 
     function fun_delete($id)
     {
-        var view_url = '/cliente/'+$id;
+        var view_url = '/asesor/'+$id;
         $.ajax({
           url: view_url,
           type:'GET',
@@ -157,17 +165,13 @@ function fun_view($id)
           async: true,
           success: function(result){
 
-          $("#ID").val(result.CL_ID);
+          $("#ID").val(result.AS_ID);
 
-          $("#nombre").val(result.CL_nombre_completo);
+          $("#nombre").val(result.AS_nombre);
 
-          if (result.CL_referencia == null) {
-            $("#referencia").val("No posee");
-          } else {
-            $("#referencia").val(result.CL_referencia);
-          }
+          $("#alias").val(result.AS_alias);
 
-          $("#direccion").val(result.CL_direccion);
+          $("#telefono").val(result.AS_telefono);
           }
         });
       } 
@@ -175,12 +179,12 @@ function fun_view($id)
   // delete a post
   
   $('.modal-footer').on('click', '.delete', function() {
-    var conf = confirm("Al borrar al cliente borraras sus eventos tambien. Estas seguro de realizar esta acción?");
+    var conf = confirm("Al borrar al asesor borraras sus eventos tambien. Estas seguro de realizar esta acción?");
     if(conf){
       var id = $("#ID").val();
       $.ajax({
           type: 'delete',
-          url: 'cliente/eliminar/' + id,
+          url: 'asesor/eliminar/' + id,
           data: {
               '_token': $('input[name=_token]').val(),
           },
