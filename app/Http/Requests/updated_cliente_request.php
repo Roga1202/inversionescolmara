@@ -24,7 +24,7 @@ class updated_cliente_request extends FormRequest
     public function rules()
     {
         return [
-            'nit' => 'numeric | unique:cliente,CL_NIT,'.request()->id.',CL_ID',
+            'nit' => 'unique:cliente,CL_NIT,'.request()->id.',CL_ID',
             'direccion' => 'required',
         ];
     }
@@ -32,7 +32,6 @@ class updated_cliente_request extends FormRequest
     public function messages()
     {
         return [
-            'nit.numeric' => 'El NIT solo debe poseer numeros',
             'nit.unique' => 'El NIT ya se encuentra registrado',
             'direccion.required' => 'La direccion es obligatoria',
         ];

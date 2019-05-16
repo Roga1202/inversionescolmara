@@ -140,7 +140,6 @@ function fun_view($id)
       var telefono_emergencia = $("#edit_telefono_emergencia").val();
       var correo = $("#edit_correo").val();
       var imei = $("#edit_IMEI").val();
-      alert(imei);
       var alias = $("#edit_alias").val();
 
       $.ajax({

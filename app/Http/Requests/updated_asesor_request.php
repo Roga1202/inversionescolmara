@@ -24,12 +24,11 @@ class updated_asesor_request extends FormRequest
     public function rules()
     {
         return [
-            'cedula' => 'numeric | unique:asesor,AS_cedula,'.request()->id.',AS_ID',
-            'tipo' => 'alpha_num',
-            'telefono' => 'numeric | unique:asesor,AS_telefono,'.request()->id.',AS_ID',
+            'cedula' => 'unique:asesor,AS_cedula,'.request()->id.',AS_ID',
+            'telefono' => 'unique:asesor,AS_telefono,'.request()->id.',AS_ID',
             'telefono_emergencia' => 'numeric',
             'correo' => 'email | unique:asesor,AS_correo,'.request()->id.',AS_ID',
-            'imei' => 'numeric | unique:asesor,AS_IMEI,'.request()->id.',AS_ID',
+            'imei' => 'unique:asesor,AS_IMEI,'.request()->id.',AS_ID',
             'alias' => 'unique:asesor,AS_alias,'.request()->id.',AS_ID',
         ];
     }
@@ -37,15 +36,12 @@ class updated_asesor_request extends FormRequest
     public function messages()
     {
         return [
-            'cedula.numeric' => 'La cedula debe poseer solo numeros',
             'cedula.unique' => 'La cedula se encuentra ya se encuentra registrada',
             'tipo.alpha_num' => 'El tipo solo puede ser numeros o letras',
-            'telefono.numeric' => 'El telefono solo debe poseer numeros',
             'telefono.unique' => 'El telefono ya se encuentra registrado',
             'telefono_emergencia.numeric' => 'El telefono de emergencia solo debe poseer numeros',
             'correo.email' => 'El correo es incorrecto',
             'correo.unique' => 'El correo ya se encuentra registrado',
-            'imei.numeric' => 'El IMEI solo deben ser numeros',
             'imei.unique' => 'El IMEI ya se encuentra registado',
             'alias.unique' => 'El alias ya esta registrado',
         ];
