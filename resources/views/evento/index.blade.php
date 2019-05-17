@@ -2,33 +2,50 @@
 
 
 @section('block')
-<div class="col-sm-10" style="align:center;">
+<div class="col-sm-10 container" style="align:center;">
     <h2 class="page-header text-center">
         Eventos <span class="glyphicon glyphicon-user"></span>
     </h2>
-    <table class="table table-striped" style="size:auto;">
-        <thead>
-            <tr>
-                <th style="" class="text-center">ID</th>
-                <th style="" class="text-center">Asesor</th>
-                <th style="" class="text-center">Cliente</th>
-                <th style="" class="text-center">Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($eventos as $evento)
-                <tr class="table table-striped" style="size:auto;">
-                    <td class="text-center" name="id" id="id">{{ $evento['EV_ID'] }}</td>
-                    <td class="text-center">{{ $evento['EV_asesor'] }}</td>
-                    <td class="text-center">{{ $evento['EV_cliente'] }}</td>
-                    <td class="text-center">
-                      <button class="btn btn-info" data-toggle="modal" data-target="#viewModal" onclick="fun_view('{{$evento['EV_ID']}}')">Ver</button>
-                      <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" onclick="fun_delete('{{$evento['EV_ID']}}')">Borrar</button>
-                    </td>
-                </tr>       
-            @endforeach
-        </tbody>
-    </table>
+
+    
+<div class="col-sm-10">
+  <form action="importar" method="post" enctype="multipart/form-data">
+    {{ csrf_field() }}
+    <h3 class="text-center">Asesor</h3>
+    <input name="asesor" id="asesor" class="form-control" accept="xlsx" type="file"/>
+    <h3 class="text-center">Cliente</h3>
+    <input name="cliente" id="cliente" class="form-control" accept="xlsx" type="file"/>
+    <h3 class="text-center">Formulario Rutero Mayor</h3>
+    <input name="evento" id="evento" class="form-control" accept="xlsx" type="file"/>
+    <input type="submit" class="btn btn-primary" value="Guardar">
+  </form>
+</div>
+
+    <div class="container">
+        <table class="table table-striped" style="size:auto;">
+            <thead>
+                <tr>
+                    <th style="" class="text-center">ID</th>
+                    <th style="" class="text-center">Asesor</th>
+                    <th style="" class="text-center">Cliente</th>
+                    <th style="" class="text-center">Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="cuerpo">
+                @foreach ($eventos as $evento)
+                    <tr class="table table-striped" style="size:auto;">
+                        <td class="text-center" name="id" id="id">{{ $evento['EV_ID'] }}</td>
+                        <td class="text-center">{{ $evento['EV_asesor'] }}</td>
+                        <td class="text-center">{{ $evento['EV_cliente'] }}</td>
+                        <td class="text-center">
+                        <button class="btn btn-info" data-toggle="modal" data-target="#viewModal" onclick="fun_view('{{$evento['EV_ID']}}')">Ver</button>
+                        <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" onclick="fun_delete('{{$evento['EV_ID']}}')">Borrar</button>
+                        </td>
+                    </tr>       
+                @endforeach
+            </tbody>
+        </table>
+    </div>
 </div>
 
 	<!-- View Modal start -->
@@ -66,57 +83,6 @@
       </div>
     </div>
     <!-- view modal ends -->
-
-    <!--eliminar un registro-->
-    <div id="deleteModal" class="modal" role="dialog">
-      <div class="modal-dialog">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  <h4 class="modal-title"></h4>
-              </div>
-              <div class="modal-body">
-                  <h3 class="text-center">Estas seguro que quieres eliminar el evento?</h3>
-                  <br />
-                  <form class="form-horizontal" action="evento/eliminar" method="DELETE">
-                      {{ csrf_field() }}
-                      <div class="form-group">
-                          <label class="control-label col-sm-2" for="id">ID:</label>
-                          <div class="col-sm-10">
-                              <input type="number" class="form-control" id="ID" disabled>
-                          </div>
-                      </div>
-                      <div class="form-group">
-                          <label class="control-label col-sm-2" for="title">Asesor:</label>
-                          <div class="col-sm-10">
-                              <input type="name" class="form-control" id="asesor" disabled>
-                          </div>
-                      </div>
-                      <div class="form-group">
-                          <label class="control-label col-sm-2" for="title">Cliente:</label>
-                          <div class="col-sm-10">
-                              <input type="name" class="form-control" id="cliente" disabled>
-                          </div>
-                      </div>
-                      <div class="form-group">
-                            <label class="control-label col-sm-2" for="title">Fecha:</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="fecha" disabled>
-                            </div>
-                      </div>
-                  </form>
-                  <div class="modal-footer">
-                      <button type="submit" class="btn btn-danger delete" data-dismiss="modal">
-                          <span id="" class='glyphicon glyphicon-trash'></span> Delete
-                      </button>
-                      <button type="button" class="btn btn-warning" data-dismiss="modal">
-                          <span class='glyphicon glyphicon-remove'></span> Close
-                      </button>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
     
 @endsection
 @section('script')

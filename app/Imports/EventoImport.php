@@ -7,6 +7,7 @@ use App\Cliente;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Symfony\Component\Console\Input\StringInput;
+use App\Http\Controllers\ProcesoController;
 
 class EventoImport implements ToCollection
 {
@@ -25,34 +26,30 @@ class EventoImport implements ToCollection
         {
             if ($contador_filas != 0 and strlen($row[0]) == 24) {
 
-                //fecha
-                $fecha_evento = $row[1].':00';
-
-                $año = substr($fecha_evento,6,4);
-                $mes = substr($fecha_evento,3,2);
-                $dia = substr($fecha_evento,0,2);
-                $hora = substr($fecha_evento,11,9);
+                $proceso = new ProcesoController;
                 
-                $fecha_evento = $año . '-' . $mes . '-' . $dia . ' ' . $hora;
-
+                //fecha
+                $fecha_evento = $proceso->get_Fecha($row[1]);
                 
                 //asesor
+                $asesor = utf8_decode($proceso->Revisar_String($row));
                 $asesor= Asesor::where('AS_nombre',$row[2])->first();
                 
                 //cliente
-                $cliente= Cliente::where('CL_nombre_completo',$row[3])->first();
+                $cliente = ($proceso->Revisar_String($row[3]));
+                $cliente= Cliente::where('CL_nombre_completo',$cliente)->first();
                 
                 if($asesor == null || $cliente == null){
                     if($asesor == null){
                         $message = 'El asesor no existe. ' + $row[2];
                     }elseif($cliente == null){
-                        $message = 'El cliente no existe. ';
+                        $message = 'El cliente no existe. ' + $row[3];
                     }else{
                         $message = 'El cliente y asesor no existen. Asesor ' + $row[2] + ' Cliente ' + $row[3];
                     }
                     \Log::error($message);
                 }
-
+                
 
                 //hora visita
                 $hora_visita = value($row[7]);
@@ -61,97 +58,68 @@ class EventoImport implements ToCollection
                 }
                 
                 // cambio hora AM/PM a militar
-                $hora_visita = $this->cambio_militar(value($hora_visita));
+                $hora_visita = $proceso->Cambio_Militar(value($hora_visita));
                 
                 //consolidacion de compra
                 $consolidacion = utf8_decode($row[10]);
-                $consolidacion = $this->comprobar_boolean($consolidacion);
+                $consolidacion = $proceso->Comprobar_Boolean($consolidacion);
                 
                 //cartera vencida
                 $cartera_vencida = utf8_decode($row[11]);
-                $cartera_vencida = $this->comprobar_boolean($cartera_vencida);
+                $cartera_vencida = $proceso->Comprobar_Boolean($cartera_vencida);
                 
                 //abono
                 $boolean_abono = utf8_decode($row[13]);
-                $boolean_abono = $this->comprobar_boolean($boolean_abono);
+                $boolean_abono = $proceso->Comprobar_Boolean($boolean_abono);
                 
                 //tipo de pago
-                
-                if ($row[14] > 0) {
-                    $dinero = $row[14];
-                    $tipo_pago = 'Efectivo';
-                } elseif($row[15] > 0) {
-                    $dinero = $row[15];
-                    $tipo_pago = 'Cheque';
-                } elseif($row[16] > 0) {
-                    $dinero = $row[16];
-                    $tipo_pago = 'Transferencia';
-                } else{
-                    $dinero = '0';
-                    $tipo_pago = null;
-                }
-                
+                $tipo_pago = $proceso->get_Tipo_Pago($row[14],$row[15],$row[16]);
+
                 //proxima cita
-                if($row[18]){
-                    $fecha_proxima_cita = str_replace('/','-',$row[18]);
-                    
-                    
-                    if($fecha_proxima_cita[2] != '-'){
-                        $fecha_proxima_cita = '0'.$fecha_proxima_cita;
-                    }
-                    if($fecha_proxima_cita[5] != '-'){
-                        $fecha_proxima_cita = substr($fecha_proxima_cita, 0,3) . '0'. substr($fecha_proxima_cita, 3);
-                    }
-                    // cambio hora AM/PM a militar
-                    if(substr(value($row[19]),0,1) != '0' || substr(value($row[19]),0,1) != '1'){
-                        $row[19] = '0'. $row[19];
-                    }
-                    $hora_proxima_cita = $this->cambio_militar(value($row[19]));
-                    
-                    
-                    
-                    $año = substr($fecha_proxima_cita,6,4);
-                    $mes = substr($fecha_proxima_cita,3,2);
-                    $dia = substr($fecha_proxima_cita,0,2);
-                    $hora = substr($fecha_proxima_cita,11,9);
-                    
-                    $fecha_proxima_cita = $año . '-' . $mes . '-' . $dia . ' ' . $hora;
-                    
-                    $fecha_proxima_cita= $fecha_proxima_cita . ' ' . $hora_proxima_cita;
-                    
-                }else{
-                    $fecha_proxima_cita = null;
-                }
+                $fecha_proxima_cita = $proceso->get_Fecha_Proxima_Cita($row[18],$row[19]);
+                $id_geo = $row[0];
+                $tipo = $row[4];
+                $direccion = $row[6];
+                $motivo = $row[9];
+                $comentario_no_consolidacion = $row[11];
+                $proximo_paso = $row[17];
                 try {
                     $evento= Evento::create([
-                        'EV_ID_GEO'=> $row[0],
+                        'EV_ID_GEO'=> $id_geo,
                         'EV_fecha'=> $fecha_evento,
                         'EV_asesor'=> $asesor->AS_ID,
                         'EV_cliente'=> $cliente->CL_ID,
-                        'EV_tipo'=> $row[4],
-                        'EV_direccion'=> $row[6],
+                        'EV_tipo'=> $tipo,
+                        'EV_direccion'=> $direccion,
                         'EV_hora'=> $hora_visita,
-                        'EV_motivo'=> $row[9],
+                        'EV_motivo'=> $motivo,
                         'EV_consolidacion'=> $consolidacion,
-                        'EV_comentario_no_consolidacion' => $row[11],
+                        'EV_comentario_no_consolidacion' => $comentario_no_consolidacion,
                         'EV_cartera_vencida' => $cartera_vencida,
                         'EV_abono'=> $boolean_abono,
-                        'EV_dinero_abono'=> $dinero,
-                        'EV_tipo_pago'=> $tipo_pago,
-                        'EV_proximo_paso'=> $row[17],
+                        'EV_dinero_abono'=> $tipo_pago["dinero"],
+                        'EV_tipo_pago'=> $tipo_pago["tipo_pago"],
+                        'EV_proximo_paso'=> $proximo_paso,
                         'EV_fecha_proxima_cita'=> $fecha_proxima_cita,
-                    ]);
-
+                        ]);
+                        
                     $cliente->CL_ultima_visita= $fecha_evento;
+
                     $numero_visitas = Evento::where('EV_cliente', '=', $cliente->CL_ID)->count();
                     $cliente->CL_numero_visitas= $numero_visitas;
+
                     $visitas_asesor = Evento::where('EV_asesor', '=', $asesor->AS_ID)->count();
+
                     $asesor->AS_visita = $visitas_asesor;
                     
                     if($consolidacion == true){
+
                         $cliente->CL_ultima_compra= $fecha_evento;
+                        
                         $numero_compras = Evento::where('EV_cliente', '=', $cliente->CL_ID)->where('EV_consolidacion', '=','1')->count();
+                        
                         $cliente->CL_numero_compras = $numero_compras;
+                        
                         $numero_ventas = Evento::where([
                             ['EV_asesor', '=', $asesor->AS_ID],
                             ['EV_consolidacion', '=', '1'],
@@ -161,7 +129,9 @@ class EventoImport implements ToCollection
                             ['EV_cliente', '=', $cliente->CL_ID],
                             ['EV_consolidacion', '=', '1'],
                             ])->pluck('EV_dinero_abono');
+
                             $total = 0;
+
                             foreach ($compra_cliente as $valor) {
                                 $total = $total + $valor;
                             }
@@ -179,8 +149,10 @@ class EventoImport implements ToCollection
 
                     $asesor->save();
                     $cliente->save();
+                    
                     $contador_registros++;
                     }catch(\Exception $e){
+                        dd($e);
                         if($e->getCode() == '23000'){
                             $this->errores[$contador_errores]= 'El evento de la fila '. $contador_filas .' ya se encuentra registrado';
                         }
@@ -222,31 +194,6 @@ class EventoImport implements ToCollection
         return $this->numero_errores;
     }
 
-    public function comprobar_boolean($string){
-        $string = strtolower($string);
-        if($string == 'no'){
-            $string = false;
-        }else{
-            $string = true;
-        }
-        return $string;
-    }
-
-    public function cambio_militar($hora_completa){
-        $hora = substr($hora_completa, 0,2);
-        $minutos = substr($hora_completa, 3,2);  
-        $segundos = substr($hora_completa, 6,2);  
-        $indicador = substr($hora_completa,8,10);
-        if($indicador == 'PM'){
-            $hora = $hora + 12;
-            if ($hora == 24) {
-                $hora = '00';
-            }
-        }
-
-        $hora_completa = $hora.':'.$minutos.':'.$segundos;
-        return $hora_completa;
-    }
 }
 
 

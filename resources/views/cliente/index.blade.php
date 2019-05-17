@@ -19,8 +19,8 @@
                 <th style="" class="text-center">ID</th>
                 <th style="" class="text-center">Nombre</th>
                 <th style="" class="text-center">Ref</th>
-                <th style="" class="text-center">Compras</th>
                 <th style="" class="text-center">Visitas</th>
+                <th style="" class="text-center">Compras</th>
                 <th style="" class="text-center">Porcentaje Ventas</th>
                 <th style="" class="text-center">Dinero total</th>
                 <th style="" class="text-center">Acciones</th>
@@ -32,15 +32,13 @@
                     <td class="text-center">{{ $cliente['CL_ID'] }}</td>
                     <td class="text-center" width="3">{{ $cliente['CL_nombre_completo'] }}</td>
                     <td class="text-center">{{ $cliente['CL_referencia'] }}</td>
-                    <td class="text-center">{{ $cliente['CL_numero_compras'] }}</td>
                     <td class="text-center">{{ $cliente['CL_numero_visitas'] }}</td>
+                    <td class="text-center">{{ $cliente['CL_numero_compras'] }}</td>
                     <td class="text-center">{{ $cliente['CL_porcentaje_ventas'] }} %</td>
                     <td class="text-center">{{ $cliente['CL_dinero_total'] }}</td>
                     <td class="text-center">
                       <button class="btn btn-info" data-toggle="modal" data-target="#viewModal" onclick="fun_view('{{$cliente['CL_ID']}}')">Ver</button>
-                      <button class="btn btn-warning" data-toggle="modal" data-target="#editModal" onclick="fun_edit('{{$cliente['CL_ID']}}')">Editar</button>
-                      <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" onclick="fun_delete('{{$cliente['CL_ID']}}')">Borrar</button>
-                    </td>
+                     </td>
                 </tr>
             @endforeach
         </tbody>
@@ -85,118 +83,8 @@
           <button type="button" class="btn btn-default cerrarModal" data-dismiss="modal">Close</button>
         </div>
       </div>
-      
     </div>
   </div>
-  <!-- view modal ends -->
- 
-    <!-- Edit Modal start -->
-    <div class="modal" id="editModal" role="dialog">
-        <div class="modal-dialog">
-        
-          <!-- Modal content-->
-          <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title text-center">Editar</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body">
-              <form action="evento/actualizar" method="POST">
-                {{ csrf_field() }}
-                <div class="form-group">
-
-                    <input type="hidden" class="form-control" id="edit_ID" name="edit_ID">
-
-                    <div class="form-group">
-                        <label for="edit_apellido">Nombre:</label>
-                        <input type="text" class="form-control" id="edit_nombre" name="edit_nombre" disabled>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="edit_apellido">Referencia:</label>
-                        <input type="text" class="form-control" id="edit_referencia" name="edit_referencia">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="edit_apellido">NIT:</label>
-                        <input type="number" min="0" class="form-control" id="edit_NIT" name="edit_NIT">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="edit_nombre">Direccion:</label>
-                        <input type="text" class="form-control" id="edit_direccion" name="edit_direccion">
-                    </div>
-                    
-                </div>
-
-            </form>
-        </div>
-        <div class="modal-footer">
-            <button type="submit" class="btn btn-default updated" data-dismiss="modal">Modificar</button>
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-            
-          </div>
-          
-        </div>
-      </div>
-      <!-- Edit code ends -->
-
-
-
-
-
-  <!--eliminar un registro-->
-  <div id="deleteModal" class="modal" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title"></h4>
-            </div>
-            <div class="modal-body">
-                <h3 class="text-center">Estas seguro que quieres eliminar el evento?</h3>
-                <br />
-                <form class="form-horizontal" action="evento/eliminar" method="DELETE">
-                    {{ csrf_field() }}
-                    <div class="form-group">
-                        <label class="control-label col-sm-2" for="id">ID:</label>
-                        <div class="col-sm-10">
-                            <input type="number" class="form-control" id="ID" disabled>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-sm-2" for="title">Nombre:</label>
-                        <div class="col-sm-10">
-                            <input type="name" class="form-control" id="nombre" disabled>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-sm-2" for="title">Referencia:</label>
-                        <div class="col-sm-10">
-                            <input type="name" class="form-control" id="referencia" disabled>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                          <label class="control-label col-sm-2" for="title">Direccion:</label>
-                          <div class="col-sm-10">
-                              <input type="text" class="form-control" id="direccion" disabled>
-                          </div>
-                    </div>
-                </form>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-danger delete" data-dismiss="modal">
-                        <span class='glyphicon glyphicon-trash'></span> Delete
-                    </button>
-                    <button type="button" class="btn btn-warning" data-dismiss="modal">
-                        <span class='glyphicon glyphicon-remove'></span> Close
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-  
 @endsection
 @section('script')
 <script src="{{ asset('assets/js/cliente.js') }}"></script>

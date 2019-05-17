@@ -56,21 +56,29 @@
                           <li><a href="asesores">Asesor</a></li>
                           <li><a href="clientes">Cliente</a></li>
                           <li><a href="eventos">Evento</a></li>
-                          <!-- <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Archivos</a>
-                            <ul class="dropdown-menu">
-                              <li><a href="arcjos/asesores">Asesor</a></li>
-                              <li><a href="archivos/clientes">Cliente</a></li>
-                              <li><a href="archivos/eventos">Evento</a></li>
-                            </ul>
-                          </li> -->
                         </ul>
                       </div>
                     </nav>
                   </div>
                 </div>
-              </div> 
-            </div>
+              </div>
+
+              <div class="row">
+                <div class="container-fluid text-center">    
+                  <div class="row content">
+                    <nav class="navbar navbar-inverse">
+                      <div class="container-fluid">
+                        <ul class="nav navbar-nav">
+                          <form action="javascript:void(0);" id="busqueda_form"><input type="text" id="valor"><button>Enviar</button></form>
+                        </ul>
+                      </div>
+                    </nav>
+                  </div>
+                </div>
+              </div>
+
+              </div>
+
             @yield('block')
           </div>
       </tbody>

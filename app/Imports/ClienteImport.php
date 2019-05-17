@@ -5,6 +5,7 @@ namespace App\Imports;
 use App\Cliente;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
+use App\Http\Controllers\ProcesoController;
 
 
 class ClienteImport implements ToCollection
@@ -21,23 +22,38 @@ class ClienteImport implements ToCollection
         $contador_filas = 0;
         $contador_errores = 0;
         $contador_registros = 0;
+
         foreach ($rows as $row)
         {
             if ($contador_filas != 0 and $row[0] != null) {
+
+                $proceso = new ProcesoController;
+                
+                $id_geo = $proceso->Revisar_String($row[0]);
+                $grupo = $proceso->Revisar_String($row[1]);
+                $referencia = $proceso->Revisar_String($row[2]);
+                $nombre = $proceso->Revisar_String($row[5]);
+                $longitud = $proceso->Revisar_String($row[7]);
+                $latitud = $proceso->Revisar_String($row[6]);
+                $radio = $proceso->Revisar_String(intval($row[8]));
+                $direccion = $proceso->Revisar_String($row[9]);
+                $direccion_descripcion = $proceso->Revisar_String($row[10]);
+                $color = $proceso->Revisar_String($row[11]);
+                $telefono = $proceso->Revisar_String($row[12]);
+                $correo = $proceso->Revisar_String($row[13]);
+
+                
+
                 try {
                     Cliente::create([
-                        'CL_ID_GEO'=> $row[0],
-                        'CL_grupo'=> $row[1],
-                        'CL_referencia'=> $row[2],
-                        'CL_nombre_completo'=> $row[5],
-                        'CL_longitud'=> $row[7],
-                        'CL_latitud'=> $row[6],
-                        'CL_radio'=> intval($row[8]),
-                        'CL_direccion'=> $row[9],
-                        'CL_direccion_descripcion'=> $row[10],
-                        'CL_color'=> $row[11],
-                        'CL_telefono'=> $row[12],
-                        'CL_correo'=> $row[13]
+                        'CL_ID_GEO'=> $id_geo,
+                        'CL_grupo'=> $grupo,
+                        'CL_referencia'=> $referencia,
+                        'CL_nombre_completo'=> $nombre,
+                        'CL_direccion'=> $direccion,
+                        'CL_direccion_descripcion'=> $direccion_descripcion,
+                        'CL_telefono'=> $telefono,
+                        'CL_correo'=> $correo
                     ]);
                     $contador_registros++;
                 }catch(\Exception $e){

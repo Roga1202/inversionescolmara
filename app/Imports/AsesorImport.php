@@ -5,6 +5,7 @@ namespace App\Imports;
 use App\Asesor;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
+use App\Http\Controllers\ProcesoController;
 
 
 class AsesorImport implements ToCollection
@@ -24,23 +25,37 @@ class AsesorImport implements ToCollection
         foreach ($rows as $row)
         {
             if ($contador_filas != 0 and $row[0] != null) {
-                try {
-                    Asesor::create([
-                        'AS_nombre'=> $row[2],
-                        'AS_IMEI'=> $row[0],
-                        'AS_grupo'=> $row[1],
-                        'AS_telefono'=> $row[3],
-                        'AS_alias'=> $row[7],
-                    ]);
-                    $contador_registros++;
-                }catch(\Exception $e){
-                    if($e->getCode() == '23000'){
-                        $this->errores[$contador_errores]= 'El asesor o telefono de la fila '. $contador_filas .' ya se encuentra registrado';
-                    }else{
-                        $this->errores[$contador_errores]=$e->getMessage() . ' en la fila numero ' . $contador_filas;
+
+                $proceso = new ProcesoController;
+                
+                $nombre = $proceso->Revisar_String($row[2]);
+                if($nombre != null){
+                    $imei = $proceso->Revisar_String($row[0]);
+                    $grupo = $proceso->Revisar_String($row[1]);
+                    $telefono = $proceso->Revisar_String($row[3]);
+                    $alias = $proceso->Revisar_String($row[7]);
+                    
+                    
+                    try {
+                        Asesor::create([
+                            'AS_nombre'=> $nombre,
+                            'AS_IMEI'=> $imei,
+                            'AS_grupo'=> $grupo,
+                            'AS_telefono'=> $telefono,
+                            'AS_alias'=> $alias,
+                            ]);
+                            $contador_registros++;
+                        }catch(\Exception $e){
+                            dd($e);
+                            if($e->getCode() == '23000'){
+                            $this->errores[$contador_errores]= 'El asesor o telefono de la fila '. $contador_filas .' ya se encuentra registrado';
+                        }else{
+                            $this->errores[$contador_errores]=$e->getMessage() . ' en la fila numero ' . $contador_filas;
+                        }
+                        report($e);
+                        $contador_errores++;
                     }
-                    report($e);
-                    $contador_errores++;
+
                 }
             }
             $contador_filas++;
@@ -71,5 +86,4 @@ class AsesorImport implements ToCollection
     public function getNumberError(){
         return $this->numero_errores;
     }
-
 }
