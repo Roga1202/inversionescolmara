@@ -63,7 +63,6 @@ class ClienteImport implements ToCollection
                             $contador_registros++;
                         }catch(\Exception $e){
                             if($e->getCode() == '23000'){
-                                dd($e);
                                 $this->errores[$contador_errores]= 'El cliente de la fila '. $alt .' ya se encuentra registrado o no posee direccion registrada';
                             }else{
                                 $this->errores[$contador_errores]=$e->getMessage() . ' en la fila numero ' . $alt;
