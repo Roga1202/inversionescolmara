@@ -107,3 +107,14 @@ $('.modal-footer').on('click', '.delete', function() {
         }
     });
 });
+
+function validar(){
+  var input = document.getElementById("evento");
+  if(input.value != ""){
+      document.getElementById("enviar").disabled = "";  
+  }else{
+    document.getElementById("enviar").disabled = "disabled"; 
+  }
+}
+
+

@@ -208,3 +208,12 @@ function fun_view($id)
       });
     }
   });
+
+  function validar(){
+    var input = document.getElementById("cliente");
+    if(input.value != ""){
+        document.getElementById("enviar").disabled = "";  
+    }else{
+      document.getElementById("enviar").disabled = "disabled"; 
+    }
+  }

@@ -1,18 +1,61 @@
 @extends('layouts.app')
 
+@section('head')
+  <link href="{{ asset('assets/css/error.css')}}" rel='stylesheet' type='text/css'>
+  <link href="{{ asset('assets/css/archivo.css')}}" rel='stylesheet' type='text/css'>
+@endsection
 
 @section('block')
 
-@if ($errors)
-    @foreach ($errors as $error)
-        <div class="invalid-feedback">{{ $error }}</div>   
-    @endforeach
+
+@if (session('error_critico'))
+  <div class="alert alert-danger" role="alert">
+  <p>{{ session('error_critico') }}</p>
+  </div>
 @endif
 
+@if(session('numero_errores'))
+  @if (session('numero_errores') > 0)
+    <div class="alert alert-danger" role="alert">
+    @if (session('numero_errores') == 1)
+      Numero de registros {{ session('numero_registros') }}.Se ha encontrado {{ session('numero_errores') }} error.
+      <a style='cursor: pointer;' data-toggle="modal" data-target="#errorModal" class="boton_mostrar">Ver mas</a>
+    </div>
+    @else
+      Numero de registros {{ session('numero_registros') }}.Se han encontrado {{ session('numero_errores') }} errores.
+      <a style='cursor: pointer;' data-toggle="modal" data-target="#errorModal" class="boton_mostrar">Ver mas</a>
+    </div>
+    @endif
+  @endif
+@endif
+
+@php
+    if((session('notificacion') == True) && (session('numero_registros') > 0)){
+      echo '<div class="alert alert-success" role="alert"> Numero de registros ' . session('numero_registros') . '. Se ha guardado todo con exito.';
+    }
+@endphp
+
 <div class="col-sm-10" style="align:center;">
+
     <h2 class="page-header text-center">
         Clientes <span class="glyphicon glyphicon-user"></span>
     </h2>
+
+    
+      
+    <div class="container">
+        <form action="importar" method="post" enctype="multipart/form-data">
+          {{ csrf_field() }}
+          <label class="fileContainer">
+              Presiona para Subir un archivo XlSX
+              <input type="file" name="cliente" id="cliente" onchange="validar()" accept=".xlsx"/>
+          </label>
+          <label>
+            <input type="submit" id="enviar" value="Enviar" class="btn btn-primary" disabled="disabled">
+          </label>
+        </form>
+    </div>
+
     <table class="table table-striped" style="size:auto;">
         <thead>
             <tr>
@@ -37,7 +80,7 @@
                     <td class="text-center">{{ $cliente['CL_porcentaje_ventas'] }} %</td>
                     <td class="text-center">{{ $cliente['CL_dinero_total'] }}</td>
                     <td class="text-center">
-                      <button class="btn btn-info" data-toggle="modal" data-target="#viewModal" onclick="fun_view('{{$cliente['CL_ID']}}')">Ver</button>
+                      <button class="btn btn-info"  data-toggle="modal" data-target="#viewModal"onclick="fun_view('{{$cliente['CL_ID']}}')">Ver</button>
                      </td>
                 </tr>
             @endforeach
@@ -85,6 +128,40 @@
       </div>
     </div>
   </div>
+
+  
+@if(session('numero_errores'))
+  
+<!-- Error Modal start -->
+<div class="modal" id="errorModal" role="dialog">
+    <div class="modal-lg modal-dialog">
+
+    <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title text-center">Errores</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          @php
+              $i = 0;
+          @endphp
+          @foreach (session('errores') as $error)
+            <p style="text-align:center;"><b>Error {{ $i+1 }}:</b>{{ $error }}</p>
+            @php
+                $i++;
+            @endphp
+          @endforeach
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default cerrarModal" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+@endif
+  
+  
 @endsection
 @section('script')
 <script src="{{ asset('assets/js/cliente.js') }}"></script>

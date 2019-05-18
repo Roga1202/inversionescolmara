@@ -94,102 +94,12 @@ function fun_view($id)
         }
       });
     }
- 
-    function fun_edit($id)
-    {
-      var view_url = '/asesor/'+$id;
-      $.ajax({
-        url: view_url,
-        type:'GET',
-        datatype: 'json',
-        async: true,
-        success: function(result){
 
-          $("#edit_ID").val(result.AS_ID);
-          
-          $("#edit_nombre").val(result.AS_nombre);
-          
-          $("#edit_cedula").val(result.AS_cedula);
-
-          $("#edit_tipo").val(result.AS_tipo); 
-    
-          $("#edit_direccion").val(result.AS_direccion);
-
-          $("#edit_telefono").val(result.AS_telefono);
-
-          $("#edit_telefono_emergencia").val(result.AS_telefono_emergencia);
-          
-          $("#edit_correo").val(result.AS_correo);
-
-          $("#edit_IMEI").val(result.AS_IMEI);
-
-          $("#edit_alias").val(result.AS_alias);
-
-        }
-      });
+    function validar(){
+      var input = document.getElementById("asesor");
+      if(input.value != ""){
+          document.getElementById("enviar").disabled = "";  
+      }else{
+        document.getElementById("enviar").disabled = "disabled"; 
+      }
     }
-    
-    // updated a post
-  
-    $('.modal-footer').on('click', '.updated', function() {
-      var id = $("#edit_ID").val();
-      var cedula = $("#edit_cedula").val();
-      var tipo = $("#edit_tipo").val();
-      var direccion = $("#edit_direccion").val();
-      var telefono = $("#edit_telefono").val();
-      var telefono_emergencia = $("#edit_telefono_emergencia").val();
-      var correo = $("#edit_correo").val();
-      var imei = $("#edit_IMEI").val();
-      var alias = $("#edit_alias").val();
-
-      $.ajax({
-          type: "GET",
-          url: 'asesor/actualizar/' + id,
-          data: {cedula:cedula,tipo:tipo,direccion:direccion,telefono:telefono,telefono_emergencia:telefono_emergencia,correo:correo,imei:imei,alias:alias},
-          success: function(data) {
-            alert("Asesor actualizado con exito");
-          },
-        }).fail( function(jxXHR,textStatus,errorThrown){
-          alert("No se pudo guardar el asesor , revise los valores");
-      });
-    });
-
-    function fun_delete($id)
-    {
-        var view_url = '/asesor/'+$id;
-        $.ajax({
-          url: view_url,
-          type:'GET',
-          datatype: 'json',
-          async: true,
-          success: function(result){
-
-          $("#ID").val(result.AS_ID);
-
-          $("#nombre").val(result.AS_nombre);
-
-          $("#alias").val(result.AS_alias);
-
-          $("#telefono").val(result.AS_telefono);
-          }
-        });
-      } 
-
-  // delete a post
-  
-  $('.modal-footer').on('click', '.delete', function() {
-    var conf = confirm("Al borrar al asesor borraras sus eventos tambien. Estas seguro de realizar esta acción?");
-    if(conf){
-      var id = $("#ID").val();
-      $.ajax({
-          type: 'delete',
-          url: 'asesor/eliminar/' + id,
-          data: {
-              '_token': $('input[name=_token]').val(),
-          },
-          success: function(data) {
-            location.reload();
-          }
-      });
-    }
-  });
