@@ -70,7 +70,7 @@
                   <th>Asesor</th>
                   <th>Cliente</th>
                   <th>Fecha</th>
-                  <th></th>											
+                  <th>Acciones</th>											
                 </tr>
               </thead>					
             </table>
@@ -148,6 +148,8 @@
       </div>
   @endif
 @endsection
+
+
 @section('script')
 <script src="{{ asset('assets/js/evento.js') }}"></script>
 @endsection

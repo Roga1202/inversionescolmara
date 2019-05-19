@@ -72,7 +72,7 @@
                   <th>Visitas</th>
                   <th>Ventas</th>
                   <th>Porcentaje Ventas</th>											
-                  <th></th>											
+                  <th>Acciones</th>											
                 </tr>
               </thead>					
             </table>
@@ -151,6 +151,28 @@
     </div>
 @endif
 @endsection
+
+
+<!-- Error Modal start -->
+<div class="modal" id="eventoModal" role="dialog">
+  <div class="modal-lg modal-dialog">
+
+  <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title text-center">Eventos</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div name="eventos"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default cerrarModal" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
   
 @section('script')
 <script src="{{ asset('assets/js/asesor.js') }}"></script>

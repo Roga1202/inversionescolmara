@@ -1,86 +1,3 @@
-function fun_view($id)
-    {
-      var view_url = '/cliente/'+$id;
-      $.ajax({
-        url: view_url,
-        type:'GET',
-        datatype: 'json',
-        async: true,
-        success: function(result){
-          $("#view_id").text(result.CL_ID);
-          $("#view_id_geo").text(result.CL_ID_GEO);
-          $("#view_nombre").text(result.CL_nombre_completo);
-          
-          if (result.CL_referencia == null) {
-            $("#view_referencia").text("No posee");
-          } else {
-            $("#view_referencia").text(result.CL_referencia);
-          }
-          
-          if (result.CL_NIT == null) {
-            $("#view_nit").text("No se encuenta registrado");
-          }else{
-            $("#view_nit").text(result.CL_NIT); 
-          }
-          
-          if (result.CL_correo == null) {
-            $("#view_correo").text("No se encuenta registrado");
-          }else{
-            $("#view_correo").text(result.CL_correo); 
-          }
-          
-          $("#view_grupo").text(result.CL_grupo);
-          
-          $("#view_numero_visitas").text(result.CL_numero_visitas);
-          
-          if (result.CL_ultima_visita == null) {
-            
-            document.getElementById("ultima_visita").style.display = "none";
-            
-          } else {
-            
-            document.getElementById("ultima_visita").style.display = "block";
-            $("#view_ultima_visita").text(result.CL_ultima_visita);
-          }
-          
-          $("#view_numero_compras").text(result.CL_numero_compras);
-          
-          if (result.CL_numero_compras == 0) {
-            
-            document.getElementById("ultima_compra").style.display = "none";
-
-          } else {
-
-            document.getElementById("ultima_compra").style.display = "block";
-            $("#view_ultima_compra").text(result.CL_ultima_compra);
-
-          }
-          
-          $("#view_direccion").text(result.CL_direccion );
-          
-          if (result.CL_direccion_descripcion == null) {
-            $("#view_descripcion").text("No hay descripcion");
-          } else {
-            $("#view_descripcion").text(result.CL_direccion_descripcion);
-          }
-
-          if (result.CL_numero_compras == 0) {
-
-            document.getElementById("porcentaje").style.display = "none";
-
-          } else {
-            
-            document.getElementById("porcentaje").style.display = "block";
-
-            $("#view_porcentaje").text(result.CL_porcentaje_ventas + ' %');
-          }
-
-          $("#view_inicio").text(result.CL_inicio);
-
-        }
-      });
-    }
-
   function validar(){
     var input = document.getElementById("cliente");
     if(input.value != ""){
@@ -111,8 +28,87 @@ function fun_view($id)
         {"data":"CL_numero_visitas"},
         {"data":"CL_numero_compras"},
         {"data":"CL_porcentaje_ventas"},
+        {"defaultContent":"<button class='ver btn btn-info'><i class='fa fa-eye'></i></button>"},
       ],
       "language": idioma_espanol
+    });
+     obter_data_editar("#dt_cliente tbody",table);
+  }
+
+  var obter_data_editar = function(tbody,table){
+    $(tbody).on("click","button.ver", function(){
+      $('#viewModal').modal('show');
+      var data = table.row( $(this).parents("tr")).data();
+      var idcliente = $("#view_id").text(data.CL_ID);
+                      $("#view_id_geo").text(data.CL_ID_GEO);
+                      $("#view_nombre").text(data.CL_nombre_completo);
+                      
+                      if (data.CL_referencia == null) {
+                        $("#view_referencia").text("No posee");
+                      } else {
+                        $("#view_referencia").text(data.CL_referencia);
+                      }
+                      
+                      if (data.CL_NIT == null) {
+                        $("#view_nit").text("No se encuenta registrado");
+                      }else{
+                        $("#view_nit").text(data.CL_NIT); 
+                      }
+                      
+                      if (data.CL_correo == null) {
+                        $("#view_correo").text("No se encuenta registrado");
+                      }else{
+                        $("#view_correo").text(data.CL_correo); 
+                      }
+                      
+                      $("#view_grupo").text(data.CL_grupo);
+                      
+                      $("#view_numero_visitas").text(data.CL_numero_visitas);
+                      
+                      if (data.CL_ultima_visita == null) {
+                        
+                        document.getElementById("ultima_visita").style.display = "none";
+                        
+                      } else {
+                        
+                        document.getElementById("ultima_visita").style.display = "block";
+                        $("#view_ultima_visita").text(data.CL_ultima_visita);
+                      }
+                      
+                      $("#view_numero_compras").text(data.CL_numero_compras);
+                      
+                      if (data.CL_numero_compras == 0) {
+                        
+                        document.getElementById("ultima_compra").style.display = "none";
+
+                      } else {
+
+                        document.getElementById("ultima_compra").style.display = "block";
+                        $("#view_ultima_compra").text(data.CL_ultima_compra);
+
+                      }
+                      
+                      $("#view_direccion").text(data.CL_direccion );
+                      
+                      if (data.CL_direccion_descripcion == null) {
+                        $("#view_descripcion").text("No hay descripcion");
+                      } else {
+                        $("#view_descripcion").text(data.CL_direccion_descripcion);
+                      }
+
+                      if (data.CL_numero_compras == 0) {
+
+                        document.getElementById("porcentaje").style.display = "none";
+
+                      } else {
+                        
+                        document.getElementById("porcentaje").style.display = "block";
+
+                        $("#view_porcentaje").text(data.CL_porcentaje_ventas + ' %');
+                      }
+
+                      $("#view_inicio").text(data.CL_inicio);
+
     });
   }
   

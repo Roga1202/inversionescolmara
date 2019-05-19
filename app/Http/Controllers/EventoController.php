@@ -39,6 +39,20 @@ class EventoController extends Controller
         
         return response()->json($eventos);
     }
+
+    public function get_evento_asesor($id){
+        $eventos = Evento::where([
+            ['EV_asesor', '=', $id],
+            ])->get();
+        
+            foreach ($eventos as $evento) {
+                $evento['EV_cliente'] = $evento->Cliente->CL_nombre_completo;
+                $evento['EV_cliente_grupo'] = $evento->Cliente->CL_grupo;
+                $evento['EV_asesor'] = $evento->Asesor->AS_nombre;
+            }
+
+        return response()->json($eventos);
+    }
      
        
     public function getevento(Request $request)

@@ -74,7 +74,7 @@
                 <th>Visitas</th>
                 <th>Compras</th>
                 <th>Porcentaje Ventas</th>
-                <th></th>											
+                <th>Acciones</th>											
               </tr>
             </thead>					
           </table>
@@ -105,10 +105,6 @@
           <p><b>Grupo : </b><span id="view_grupo" class="text-success"></span></p>
           <p><b>Direccion: </b><span id="view_direccion" class="text-success"></span></p>
           <p><b>Descripcion : </b><span id="view_descripcion" class="text-success"></span></p>
-          <p><b>Latitud: </b><span id="view_latitud" class="text-success"></span></p>
-          <p><b>Longitud: </b><span id="view_longitud" class="text-success"></span></p>
-          <p><b>Radio: </b><span id="view_radio" class="text-success"></span></p>
-          <p><b>Color: </b><span id="view_color" class="text-success"></span></p>
           <p><b>Numero  de visitas: </b><span id="view_numero_visitas" class="text-success"></span></p>
           <div id="ultima_visita"><p><b>Ultima visita : </b><span id="view_ultima_visita" class="text-success"></span></p></div>
           <p><b>Numero de compras : </b><span id="view_numero_compras" class="text-success"></span></p>
