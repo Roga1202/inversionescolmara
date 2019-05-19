@@ -28,6 +28,7 @@ Route::post('importar','ArchivoController@post_importar');
 
 Route::get('evento/{id}', 'EventoController@getevento')->where('id', '[0-9]+');
 Route::get('evento/asesor/{id}', 'EventoController@get_evento_asesor')->where('id', '[0-9]+');
+Route::get('evento/cliente/{id}', 'EventoController@get_evento_cliente')->where('id', '[0-9]+');
 
 Route::get('cliente/{id}', 'ClienteController@getcliente')->where('id', '[0-9]+');
 

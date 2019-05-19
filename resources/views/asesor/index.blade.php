@@ -153,7 +153,7 @@
 @endsection
 
 
-<!-- Error Modal start -->
+<!-- view  evento Modal start -->
 <div class="modal" id="eventoModal" role="dialog">
   <div class="modal-lg modal-dialog">
 

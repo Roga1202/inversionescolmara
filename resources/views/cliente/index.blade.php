@@ -150,6 +150,27 @@
     </div>
   </div>
 @endif
+
+
+<!-- view  evento Modal start -->
+<div class="modal" id="eventoModal" role="dialog">
+  <div class="modal-lg modal-dialog">
+
+  <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title text-center">Eventos</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div name="eventos"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default cerrarModal" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
   
   
 @endsection

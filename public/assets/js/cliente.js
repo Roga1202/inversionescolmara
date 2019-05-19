@@ -28,14 +28,14 @@
         {"data":"CL_numero_visitas"},
         {"data":"CL_numero_compras"},
         {"data":"CL_porcentaje_ventas"},
-        {"defaultContent":"<button class='ver btn btn-info'><i class='fa fa-eye'></i></button>"},
+        {"defaultContent":"<button class='ver btn btn-info'><i class='fa fa-eye'></i></button><button class='eventos btn btn-warning'><i class='fa fa-expand'></i></button>"},
       ],
       "language": idioma_espanol
     });
-     obter_data_editar("#dt_cliente tbody",table);
+     ver("#dt_cliente tbody",table);
   }
 
-  var obter_data_editar = function(tbody,table){
+  var ver = function(tbody,table){
     $(tbody).on("click","button.ver", function(){
       $('#viewModal').modal('show');
       var data = table.row( $(this).parents("tr")).data();
@@ -110,7 +110,106 @@
                       $("#view_inicio").text(data.CL_inicio);
 
     });
+    
+    $(tbody).on("click","button.eventos", function(){
+      $('#eventoModal').modal('show');
+      var data = table.row( $(this).parents("tr")).data();
+      var id = data.CL_ID;
+      $.ajax({
+        url: 'evento/cliente/'+ id,
+        type:'GET',
+        datatype: 'json',
+        success: function(result){
+          const elements = result;
+          const list = document.querySelector('div[name="eventos"]');
+          var i = 0;
+          if (elements == '') {
+            const _ = document.createElement('h2');
+            const textElement = document.createTextNode("No tiene ningun evento registrado"); // Ocualquiera que necesites mostrar
+            _.appendChild(textElement);
+            
+            list.appendChild(_);
+            $("#eventoModal").on("hidden.bs.modal", function () {
+              while (list.lastChild) {
+                list.removeChild(list.lastChild);
+              }
+            });
+          }else{
+            elements.forEach((element) => {
+              i+=1;
+              
+              var d = document.createElement("div");
+              d.setAttribute("id", "div"+i);
+              list.appendChild(d);
+
+
+              
+              const evento = document.createElement('p');
+              const textinfo = document.createTextNode("Evento " + element.EV_ID); // Ocualquiera que necesites mostrar
+              evento.appendChild(textinfo);
+              d.appendChild(evento);
+              
+              const compra = document.createElement('p');
+              var span = document.createElement('span');
+              
+              if(element.EV_consolidacion == 1){
+                span.setAttribute("class", "glyphicon glyphicon-ok");
+                d.setAttribute('class','text-success');
+              }else{
+                span.setAttribute("class", "glyphicon glyphicon-remove");
+                d.setAttribute('class','text-danger');
+              }
+              const textcompra = document.createTextNode("Compra:"); // Ocualquiera que necesites mostrar
+              compra.appendChild(textcompra);
+              d.appendChild(compra);
+              compra.appendChild(span);
+
+              if(element.EV_consolidacion == 0){
+                
+                const comentario = document.createElement('p');
+                const textcomentario = document.createTextNode("Comentario: " + element.EV_comentario_no_consolidacion); // Ocualquiera que necesites mostrar
+                comentario.appendChild(textcomentario);
+                d.appendChild(comentario);
+
+              }
+
+              const asesor = document.createElement('p');
+              const textasesor = document.createTextNode("Asesor: " + element.EV_asesor); // Ocualquiera que necesites mostrar
+              asesor.appendChild(textasesor);
+              d.appendChild(asesor);
+              
+              if (element.EV_direccion == '-') {
+                element.EV_direccion = "No tiene  direccion registrada";
+              }
+              const direccion = document.createElement('p');
+              const textdireccion = document.createTextNode("Direccion: " + element.EV_direccion); // Ocualquiera que necesites mostrar
+              direccion.appendChild(textdireccion);
+              d.appendChild(direccion);
+
+              
+              const grupo = document.createElement('p');
+              const textgrupo = document.createTextNode("Grupo: " + element.EV_cliente_grupo); // Ocualquiera que necesites mostrar
+              grupo.appendChild(textgrupo);
+              d.appendChild(grupo);
+
+              const espacio = document.createElement('br');
+              const textespacio = document.createTextNode(""); // Ocualquiera que necesites mostrar
+              espacio.appendChild(textespacio);
+              d.appendChild(espacio);
+              
+            });
+            $("#eventoModal").on("hidden.bs.modal", function () {
+              while (list.lastChild) {
+                list.removeChild(list.lastChild);
+              }
+            });
+
+          }
+        }
+      });
+    });
   }
+  
   
   var idioma_espanol = {
     "sProcessing":     "Procesando...",
