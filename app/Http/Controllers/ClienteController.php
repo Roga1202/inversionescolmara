@@ -21,6 +21,13 @@ class ClienteController extends Controller
     }
 
     
+    public function ajax_clientes(){
+
+        $clientes = Cliente::all();
+        
+        return response()->json($clientes);
+    }
+    
     public function getcliente(Request $request)
     {
         if($request->ajax()){

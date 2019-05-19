@@ -30,9 +30,6 @@ class CrearCliente extends Migration
             $table->string('CL_NIT',50)->nullable()->unique();
             $table->string('CL_direccion');
             $table->string('CL_direccion_descripcion')->nullable();
-            $table->integer('CL_dinero_mes')->unsigned()->nullable()->default(0);
-            $table->integer('CL_dinero_total')->unsigned()->nullable()->default(0);
-            $table->integer('CL_dinero_deuda')->unsigned()->nullable()->default(0);
             $table->float('CL_porcentaje_ventas',20)->unsigned()->default(0);
 
 

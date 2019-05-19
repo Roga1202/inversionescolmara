@@ -16,7 +16,7 @@ class Cliente extends Model
     const UPDATED_AT = 'CL_actualizacion';
 
     protected $table = 'Cliente';
-    protected $fillable = ['CL_ID','CL_ID_GEO','CL_grupo','CL_referencia','CL_nombre_completo','CL_numero_compras','CL_ultima_compra','CL_numero_visitas','CL_ultima_visita','CL_correo','CL_NIT','CL_direccion','CL_direccion_descripcion','CL_dinero_mes','CL_dinero_total','CL_dinero_deuna','CL_procentaje_ventas'];
+    protected $fillable = ['CL_ID','CL_ID_GEO','CL_grupo','CL_referencia','CL_nombre_completo','CL_numero_compras','CL_ultima_compra','CL_numero_visitas','CL_ultima_visita','CL_correo','CL_NIT','CL_direccion','CL_direccion_descripcion','CL_procentaje_ventas'];
 
     public function Evento()
     {

@@ -8,7 +8,16 @@
     <link rel='stylesheet' href="{{ asset('assets/css/all.css') }}" integrity='sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/' crossorigin='anonymous'>
     <link href="{{ asset('assets/css/fonts-material-icons.css')}}" rel='stylesheet' type='text/css'>
     <link href="{{ asset('assets/css/fonts-roboto.css')}}" rel='stylesheet' type='text/css'>
-    {{-- <link rel="stylesheet" href="{{ asset('assets/font-awesome/css/font-awesome.min.css') }}"> --}}
+
+      
+    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/dataTables.bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/estilos.css') }}">
+    <!-- Buttons DataTables -->
+    <link rel="stylesheet" href="{{ asset('assets/css/buttons.bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/font-awesome.min.css') }}">
+  
+
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/bootstrap.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/bootstap3_4/bootstrap.min.css') }}">
     
@@ -72,6 +81,20 @@
           @yield('footer')
         </footer>
       </div>
+    <script src="{{ asset('assets/js/jquery-1.12.3.js') }}"></script>
+    <script src="{{ asset('assets/js/bootstrap3_6/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('assets/js/dataTables.bootstrap.js') }}"></script>
+    <!--botones DataTables-->	
+    <script src="{{ asset('assets/js/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('assets/js/buttons.bootstrap.min.js') }}"></script>
+    <!--Libreria para exportar Excel-->
+    <script src="{{ asset('assets/js/jszip.min.js') }}"></script>
+    <!--Librerias para exportar PDF-->
+    <script src="{{ asset('assets/js/pdfmake.min.js') }}"></script>
+    <script src="{{ asset('assets/js/vfs_fonts.js') }}"></script>
+    <!--Librerias para botones de exportación-->
+    <script src="{{ asset('assets/js/buttons.html5.min.js') }}"></script>
     @yield('script')
   </body>
 </html>

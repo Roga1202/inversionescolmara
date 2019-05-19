@@ -3,7 +3,8 @@
 @section('head')
   <link href="{{ asset('assets/css/error.css')}}" rel='stylesheet' type='text/css'>
   <link href="{{ asset('assets/css/archivo.css')}}" rel='stylesheet' type='text/css'>
-@endsection
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+  @endsection
 
 
 @section('block')
@@ -53,80 +54,33 @@
           </form>
       </div>
     
-    <table class="table table-striped" style="size:auto;">
-        <thead>
-            <tr>
-                <th style="" class="text-center">ID</th>
-                <th style="" class="text-center">Nombre</th>
-                <th style="" class="text-center">Visitas</th>
-                <th style="" class="text-center">Ventas</th>
-                <th style="" class="text-center">Porcentaje Ventas</th>
-                <!-- <th style="" class="text-center">Ventas del mes</th> -->
-                <th style="" class="text-center">Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($asesores as $asesor)
-                <tr class="table table-striped" style="size:auto;">
-                    <td class="text-center">{{ $asesor['AS_ID'] }}</td>
-                    <td class="text-center">{{ $asesor['AS_nombre'] }}</td>
-                    <td class="text-center">{{ $asesor['AS_visita'] }}</td>
-                    <td class="text-center">{{ $asesor['AS_ventas_total'] }}</td>
-                    <td class="text-center">{{ $asesor['AS_porcentaje_ventas'] }} %</td>
-                    <td class="text-center">
-                      <button class="btn btn-info" data-toggle="modal" data-target="#viewModal" onclick="fun_view('{{$asesor['AS_ID']}}')">Ver</button>
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
-</div>
-
-<div class="portfolio-modal modal fade" id="cliente" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="close-modal" data-dismiss="modal">
-        <div class="lr">
-          <div class="rl"></div>
-        </div>
-      </div>
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-8 mx-auto">
-            <div class="modal-body">
-              <!-- Project Details Go Here -->
-              <h2 class="text-uppercase">ACDelco</h2>
-              <p class="item-intro text-muted"></p>
-              <img class="img-fluid d-block mx-auto" src="img/marcas/ACDELCO.png" alt="ACDelco informaciòn">
-              <p>ACDelco es reconocido como líder de calidad mundial en el mercado de Autopartes de Posventa, al ofrecer partes de reemplazo Premium para prácticamente todos los vehículos.
-                Durante más de 100 años ACDelco ha innovado y fijado los estándares en la industria automotriz a través de su línea de productos y de un servicio de la más alta calidad. Sus productos incluyen:
-              </p>
-              <ul>
-
-                <li>Bombas de agua</li>
-                <li>Kit de clutch</li>
-                <li> Kit de tiempo </li>
-                <li>  Refrigerantes</li>
-                <li>Cables de Bujías</li>
-                <li> Tensores y Poleas</li>
-                <li>Bombas de Gasolina</li>
-                <li>Cepillos Limpiabrisas</li>
-                <li>Bujias de pllatino e iridio</li>
-                <li>Pastillas y bandas de frenos</li>
-                <li>Correas de tiempo y principales</li>
-                <li>Filtros de Aire, Aceite y gasolina</li>
-                <li>Empaques de Motor, tapa valvula y cámara</li>
-     
-              </ul>
-              <button class="btn btn-primary" data-dismiss="modal" type="button">
-                <i class="fas fa-times"></i>
-              Cerrar Información sobre esta Marca</button>
-            </div>
+    
+      
+      <div class="row">
+        <div id="cuadro1" class="col-sm-12 col-md-12 col-lg-12">
+          <div class="col-sm-offset-2 col-sm-8">
+            <h3 class="text-center"> <small class="mensaje"></small></h3>
           </div>
-        </div>
+          <div class="table-responsive col-sm-12">		
+            <br>
+            
+            <table id="dt_asesor" class="table table-bordered table-hover" cellspacing="0" width="100%">
+              <thead>
+                <tr>								
+                  <th>ID</th>
+                  <th>Nombre</th>
+                  <th>Visitas</th>
+                  <th>Ventas</th>
+                  <th>Porcentaje Ventas</th>											
+                  <th></th>											
+                </tr>
+              </thead>					
+            </table>
+          </div>			
+        </div>		
       </div>
-    </div>
-  </div>
+
+
 </div>
 
 <!-- View Modal start -->

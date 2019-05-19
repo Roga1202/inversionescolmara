@@ -75,39 +75,6 @@ function fun_view($id)
       });
     }
 
-    function fun_delete($id)
-    {
-        var view_url = '/evento/'+$id;
-        $.ajax({
-          url: view_url,
-          type:'GET',
-          datatype: 'json',
-          async: true,
-          success: function(result){
-          console.log(result);
-          $("#ID").val(result.EV_ID);
-          $("#asesor").val(result.EV_asesor);
-          $("#cliente").val(result.EV_cliente);
-          $("#fecha").val(result.EV_fecha);
-          }
-        });
-      } 
-
-  // delete a post
-$('.modal-footer').on('click', '.delete', function() {
-    var id = $("#ID").val();
-    $.ajax({
-        type: 'delete',
-        url: 'evento/eliminar/' + id,
-        data: {
-            '_token': $('input[name=_token]').val(),
-        },
-        success: function(data) {
-          location.reload();
-        }
-    });
-});
-
 function validar(){
   var input = document.getElementById("evento");
   if(input.value != ""){
@@ -117,4 +84,52 @@ function validar(){
   }
 }
 
+$(document).on("ready",function(){
+  listar();
+});
+
+var listar = function(){
+  var table = $("#dt_evento").DataTable({
+    "ajax":{
+      "headers": {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      "method":"post",
+      "url": "get_evento",
+      "dataSrc": "",
+    },
+    "columns":[
+      {"data":"EV_ID"},
+      {"data":"EV_asesor"},
+      {"data":"EV_cliente"},
+      {"data":"EV_fecha"},
+    ],
+    "language": idioma_espanol
+  });
+}
+
+var idioma_espanol = {
+  "sProcessing":     "Procesando...",
+  "sLengthMenu":     "Mostrar _MENU_ registros",
+  "sZeroRecords":    "No se encontraron resultados",
+  "sEmptyTable":     "Ningún dato disponible en esta tabla",
+  "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+  "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+  "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+  "sInfoPostFix":    "",
+  "sSearch":         "Buscar:",
+  "sUrl":            "",
+  "sInfoThousands":  ",",
+  "sLoadingRecords": "Cargando...",
+  "oPaginate": {
+      "sFirst":    "Primero",
+      "sLast":     "Último",
+      "sNext":     "Siguiente",
+      "sPrevious": "Anterior"
+  },
+  "oAria": {
+      "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+      "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+  }
+}
 

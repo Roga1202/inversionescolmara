@@ -3,6 +3,7 @@
 @section('head')
   <link href="{{ asset('assets/css/archivo.css')}}" rel='stylesheet' type='text/css'>
   <link href="{{ asset('assets/css/error.css')}}" rel='stylesheet' type='text/css'>
+  <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 
 @section('block')
@@ -53,32 +54,31 @@
           </label>
         </form>
     </div>
-
-    <div class="container">
-        <table class="table table-striped" style="size:auto;">
-            <thead>
-                <tr>
-                    <th style="" class="text-center">ID</th>
-                    <th style="" class="text-center">Asesor</th>
-                    <th style="" class="text-center">Cliente</th>
-                    <th style="" class="text-center">Acciones</th>
+      
+      <div class="row">
+        <div id="cuadro1" class="col-sm-12 col-md-12 col-lg-12">
+          <div class="col-sm-offset-2 col-sm-8">
+            <h3 class="text-center"> <small class="mensaje"></small></h3>
+          </div>
+          <div class="table-responsive col-sm-12">		
+            <br>
+            
+            <table id="dt_evento" class="table table-bordered table-hover" cellspacing="0" width="100%">
+              <thead>
+                <tr>								
+                  <th>ID</th>
+                  <th>Asesor</th>
+                  <th>Cliente</th>
+                  <th>Fecha</th>
+                  <th></th>											
                 </tr>
-            </thead>
-            <tbody id="cuerpo">
-                @foreach ($eventos as $evento)
-                    <tr class="table table-striped" style="size:auto;">
-                        <td class="text-center" name="id" id="id">{{ $evento['EV_ID'] }}</td>
-                        <td class="text-center">{{ $evento['EV_asesor'] }}</td>
-                        <td class="text-center">{{ $evento['EV_cliente'] }}</td>
-                        <td class="text-center">
-                        <button class="btn btn-info" data-toggle="modal" data-target="#viewModal" onclick="fun_view('{{$evento['EV_ID']}}')">Ver</button>
-                        <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" onclick="fun_delete('{{$evento['EV_ID']}}')">Borrar</button>
-                        </td>
-                    </tr>       
-                @endforeach
-            </tbody>
-        </table>
-    </div>
+              </thead>					
+            </table>
+          </div>			
+        </div>		
+      </div>
+
+
 </div>
 
 	<!-- View Modal start -->
@@ -149,5 +149,5 @@
   @endif
 @endsection
 @section('script')
-  <script src="{{ asset('assets/js/evento.js') }}"></script>
+<script src="{{ asset('assets/js/evento.js') }}"></script>
 @endsection

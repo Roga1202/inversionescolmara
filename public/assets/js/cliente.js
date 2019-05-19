@@ -64,56 +64,15 @@ function fun_view($id)
             $("#view_descripcion").text(result.CL_direccion_descripcion);
           }
 
-          $("#view_latitud").text(result.CL_latitud);
-          $("#view_longitud").text(result.CL_longitud);
-          $("#view_radio").text(result.CL_radio);
-
-          switch (result.CL_color) {
-            case "black":
-              result.CL_color = "negro";
-              break;
-            case "blue":
-              result.CL_color = "azul";
-              break;
-            case "green":
-              result.CL_color = "verde";
-              break;
-            case "orange":
-              result.CL_color = "naranja";
-              break;
-            case "pink":
-              result.CL_color = "rosa";
-              break;  
-            case "purple":
-              result.CL_color = "purpura";
-              break;
-            case "red":
-              result.CL_color = "rojo";
-              break;  
-          }
-          $("#view_color").text(result.CL_color);
-          
           if (result.CL_numero_compras == 0) {
 
-            document.getElementById("dinero_total").style.display = "none";
-            document.getElementById("dinero_mes").style.display = "none";
             document.getElementById("porcentaje").style.display = "none";
 
           } else {
             
-            document.getElementById("dinero_total").style.display = "block";
-            document.getElementById("dinero_mes").style.display = "block";
             document.getElementById("porcentaje").style.display = "block";
 
-            $("#view_dinero_total").text(result.CL_dinero_total);
-            $("#view_dinero_mes").text(result.CL_dinero_mes);
             $("#view_porcentaje").text(result.CL_porcentaje_ventas + ' %');
-          }
-
-          if (result.CL_dinero_deuda == 0) {
-            $("#view_deuda").text("No posee deudas");         
-          } else {
-            $("#view_deuda").text(result.CL_dinero_deuda);
           }
 
           $("#view_inicio").text(result.CL_inicio);
@@ -121,93 +80,6 @@ function fun_view($id)
         }
       });
     }
- 
-    function fun_edit($id)
-    {
-      var view_url = '/cliente/'+$id;
-      $.ajax({
-        url: view_url,
-        type:'GET',
-        datatype: 'json',
-        async: true,
-        success: function(result){
-
-          $("#edit_ID").val(result.CL_ID);
-
-          $("#edit_nombre").val(result.CL_nombre_completo);
-
-          $("#edit_referencia").val(result.CL_referencia);
-
-          $("#edit_NIT").val(result.CL_NIT); 
-    
-          $("#edit_direccion").val(result.CL_direccion);
-          
-        }
-      });
-    }
-    
-    // updated a post
-  
-    $('.modal-footer').on('click', '.updated', function() {
-      var id = $("#edit_ID").val();
-      var referencia = $("#edit_referencia").val();
-      var nit = $("#edit_NIT").val();
-      var direccion = $("#edit_direccion").val();
-      $.ajax({
-          type: "GET",
-          url: 'cliente/actualizar/' + id,
-          data: {referencia:referencia,nit:nit,direccion:direccion},
-          success: function(data) {
-            alert("Cliente actualizado con exito");
-          },
-        }).fail( function(jxXHR,textStatus,errorThrown){
-          alert("No se pudo guardar el cliente , revise los valores");
-      });
-    });
-
-    function fun_delete($id)
-    {
-        var view_url = '/cliente/'+$id;
-        $.ajax({
-          url: view_url,
-          type:'GET',
-          datatype: 'json',
-          async: true,
-          success: function(result){
-
-          $("#ID").val(result.CL_ID);
-
-          $("#nombre").val(result.CL_nombre_completo);
-
-          if (result.CL_referencia == null) {
-            $("#referencia").val("No posee");
-          } else {
-            $("#referencia").val(result.CL_referencia);
-          }
-
-          $("#direccion").val(result.CL_direccion);
-          }
-        });
-      } 
-
-  // delete a post
-  
-  $('.modal-footer').on('click', '.delete', function() {
-    var conf = confirm("Al borrar al cliente borraras sus eventos tambien. Estas seguro de realizar esta acción?");
-    if(conf){
-      var id = $("#ID").val();
-      $.ajax({
-          type: 'delete',
-          url: 'cliente/eliminar/' + id,
-          data: {
-              '_token': $('input[name=_token]').val(),
-          },
-          success: function(data) {
-            location.reload();
-          }
-      });
-    }
-  });
 
   function validar(){
     var input = document.getElementById("cliente");
@@ -217,3 +89,56 @@ function fun_view($id)
       document.getElementById("enviar").disabled = "disabled"; 
     }
   }
+
+  $(document).on("ready",function(){
+    listar();
+  });
+
+  var listar = function(){
+    var table = $("#dt_cliente").DataTable({
+      "ajax":{
+        "headers": {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        "method":"post",
+        "url": "get_clientes",
+        "dataSrc": "",
+      },
+      "columns":[
+        {"data":"CL_ID"},
+        {"data":"CL_nombre_completo"},
+        {"data":"CL_referencia"},
+        {"data":"CL_numero_visitas"},
+        {"data":"CL_numero_compras"},
+        {"data":"CL_porcentaje_ventas"},
+      ],
+      "language": idioma_espanol
+    });
+  }
+  
+  var idioma_espanol = {
+    "sProcessing":     "Procesando...",
+    "sLengthMenu":     "Mostrar _MENU_ registros",
+    "sZeroRecords":    "No se encontraron resultados",
+    "sEmptyTable":     "Ningún dato disponible en esta tabla",
+    "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+    "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+    "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+    "sInfoPostFix":    "",
+    "sSearch":         "Buscar:",
+    "sUrl":            "",
+    "sInfoThousands":  ",",
+    "sLoadingRecords": "Cargando...",
+    "oPaginate": {
+        "sFirst":    "Primero",
+        "sLast":     "Último",
+        "sNext":     "Siguiente",
+        "sPrevious": "Anterior"
+    },
+    "oAria": {
+        "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+    }
+  }
+  
+  

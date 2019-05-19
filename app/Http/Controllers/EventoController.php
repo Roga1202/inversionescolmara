@@ -27,6 +27,19 @@ class EventoController extends Controller
             'eventos' => $eventos,
         ]);
     }
+
+    public function ajax_eventos(){
+
+        $eventos = Evento::all();
+
+        foreach ($eventos as $evento) {
+            $evento['EV_cliente'] = $evento->Cliente->CL_nombre_completo;
+            $evento['EV_asesor'] = $evento->Asesor->AS_nombre;
+        }
+        
+        return response()->json($eventos);
+    }
+     
        
     public function getevento(Request $request)
     {

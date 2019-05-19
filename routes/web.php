@@ -16,10 +16,13 @@ Route::get('/','IndexController@get_index');
 Route::get('proceso','EventoController@get_eventos');
 
 Route::get('asesores','AsesorController@get_asesores');
+Route::post('get_asesores','AsesorController@ajax_asesores');
 
 Route::get('clientes','ClienteController@get_clientes');
+Route::post('get_clientes','ClienteController@ajax_clientes');
 
 Route::get('eventos','EventoController@get_eventos');
+Route::post('get_evento','EventoController@ajax_eventos');
 
 Route::post('importar','ArchivoController@post_importar');
 

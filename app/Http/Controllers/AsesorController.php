@@ -20,6 +20,13 @@ class AsesorController extends Controller
 
     } 
 
+    public function ajax_asesores(){
+
+        $asesores = Asesor::all();
+        
+        return response()->json($asesores);
+    }
+
     public function getasesor(Request $request)
     {
         if($request->ajax()){

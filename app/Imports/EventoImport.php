@@ -137,11 +137,6 @@ class EventoImport implements ToCollection
 
                                     $total = 0;
 
-                                    foreach ($compra_cliente as $valor) {
-                                        $total = $total + $valor;
-                                    }
-                                    $cliente->CL_dinero_total = $total;
-
                                     $asesor->AS_ventas_total = $numero_ventas;
 
                                     if($cliente->CL_numero_compras != 0 && $cliente->CL_numero_visitas != 0){

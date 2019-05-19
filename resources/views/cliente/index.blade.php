@@ -3,7 +3,8 @@
 @section('head')
   <link href="{{ asset('assets/css/error.css')}}" rel='stylesheet' type='text/css'>
   <link href="{{ asset('assets/css/archivo.css')}}" rel='stylesheet' type='text/css'>
-@endsection
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+  @endsection
 
 @section('block')
 
@@ -56,36 +57,32 @@
         </form>
     </div>
 
-    <table class="table table-striped" style="size:auto;">
-        <thead>
-            <tr>
-                <th style="" class="text-center">ID</th>
-                <th style="" class="text-center">Nombre</th>
-                <th style="" class="text-center">Ref</th>
-                <th style="" class="text-center">Visitas</th>
-                <th style="" class="text-center">Compras</th>
-                <th style="" class="text-center">Porcentaje Ventas</th>
-                <th style="" class="text-center">Dinero total</th>
-                <th style="" class="text-center">Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($clientes as $cliente)
-                <tr class="table table-striped" style="size:auto;">
-                    <td class="text-center">{{ $cliente['CL_ID'] }}</td>
-                    <td class="text-center" width="3">{{ $cliente['CL_nombre_completo'] }}</td>
-                    <td class="text-center">{{ $cliente['CL_referencia'] }}</td>
-                    <td class="text-center">{{ $cliente['CL_numero_visitas'] }}</td>
-                    <td class="text-center">{{ $cliente['CL_numero_compras'] }}</td>
-                    <td class="text-center">{{ $cliente['CL_porcentaje_ventas'] }} %</td>
-                    <td class="text-center">{{ $cliente['CL_dinero_total'] }}</td>
-                    <td class="text-center">
-                      <button class="btn btn-info"  data-toggle="modal" data-target="#viewModal"onclick="fun_view('{{$cliente['CL_ID']}}')">Ver</button>
-                     </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>   
+    <div class="row">
+      <div id="cuadro1" class="col-sm-12 col-md-12 col-lg-12">
+        <div class="col-sm-offset-2 col-sm-8">
+          <h3 class="text-center"> <small class="mensaje"></small></h3>
+        </div>
+        <div class="table-responsive col-sm-12">		
+          <br>
+          
+          <table id="dt_cliente" class="table table-bordered table-hover" cellspacing="0" width="100%">
+            <thead>
+              <tr>								
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Ref</th>
+                <th>Visitas</th>
+                <th>Compras</th>
+                <th>Porcentaje Ventas</th>
+                <th></th>											
+              </tr>
+            </thead>					
+          </table>
+        </div>			
+      </div>		
+    </div>
+
+       
 </div>
 
 	<!-- View Modal start -->
@@ -116,9 +113,6 @@
           <div id="ultima_visita"><p><b>Ultima visita : </b><span id="view_ultima_visita" class="text-success"></span></p></div>
           <p><b>Numero de compras : </b><span id="view_numero_compras" class="text-success"></span></p>
           <div id="ultima_compra"><p><b>Ultima compra: </b><span id="view_ultima_compra" class="text-success"></span></p></div>
-          <div id="dinero_total"><p><b>Dinero total: </b><span id="view_dinero_total" class="text-success"></span></p></div>
-          <div id="dinero_mes"><p><b>Dinero del mes: </b><span id="view_dinero_mes" class="text-success"></span></p></div>
-          <p><b>Deuda: </b><span id="view_deuda" class="text-success"></span></p>
           <div id="porcentaje"><p><b>Porcenta de ventas: </b><span id="view_porcentaje" class="text-success"></span></p></div>
           <p><b>Registrado desde: </b><span id="view_inicio" class="text-success"></span></p>
         </div>
