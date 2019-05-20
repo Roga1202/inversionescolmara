@@ -129,7 +129,7 @@
       var id = data.AS_ID;
       $.ajax({
         url: 'evento/asesor/'+ id,
-        type:'GET',
+        type:'get',
         datatype: 'json',
         success: function(result){
           const elements = result;

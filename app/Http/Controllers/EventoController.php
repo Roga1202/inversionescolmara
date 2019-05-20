@@ -88,18 +88,4 @@ class EventoController extends Controller
         }
     }
 
-    
-    public function posteliminar(Request $request)
-    {
-        $id = $request->id;
-        $data = Evento::find($id);
-        $response = $data->delete();
-        if($response){
-            $message  = "El Evento ya fue Eliminado.";
-        }
-        else{
-            $message = "Hubo un problema al eliminar el Evento";
-        }
-        return $message;
-    }
 }

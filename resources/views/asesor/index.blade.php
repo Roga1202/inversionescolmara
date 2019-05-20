@@ -11,7 +11,7 @@
 
 @if (session('error_critico'))
   <div class="alert alert-danger" role="alert">
-  <p>{{ session('error_critico') }}</p>
+    <p>{{ session('error_critico') }}</p>
   </div>
 @endif
 
@@ -41,7 +41,7 @@
           Asesores <span class="glyphicon glyphicon-user"></span>
       </h2>
       
-      <div class="container">
+      <div class="row">
           <form action="importar" method="post" enctype="multipart/form-data">
             {{ csrf_field() }}
             <label class="fileContainer">
@@ -57,11 +57,11 @@
     
       
       <div class="row">
-        <div id="cuadro1" class="col-sm-12 col-md-12 col-lg-12">
+        <div id="cuadro1" class="col-sm-10 col-md-10 col-lg-10">
           <div class="col-sm-offset-2 col-sm-8">
             <h3 class="text-center"> <small class="mensaje"></small></h3>
           </div>
-          <div class="table-responsive col-sm-12">		
+          <div class="table-responsive col-sm-10">		
             <br>
             
             <table id="dt_asesor" class="table table-bordered table-hover" cellspacing="0" width="100%">

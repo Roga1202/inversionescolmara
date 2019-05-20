@@ -44,7 +44,7 @@
 
     
       
-    <div class="container">
+    <div class="row">
         <form action="importar" method="post" enctype="multipart/form-data">
           {{ csrf_field() }}
           <label class="fileContainer">

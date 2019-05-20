@@ -1,15 +1,3 @@
-function fun_view($id)
-    {
-      var view_url = '/evento/'+$id;
-      $.ajax({
-        url: view_url,
-        type:'GET',
-        datatype: 'json',
-        async: true,
-        success: function(result){
-        }
-      });
-    }
 
 function validar(){
   var input = document.getElementById("evento");
@@ -43,10 +31,11 @@ var listar = function(){
     ],
     "language": idioma_espanol
   });
-  obter_data_editar("#dt_evento tbody",table);
+  ver("#dt_evento tbody",table);
 }
 
-var obter_data_editar = function(tbody,table){
+var ver = function(tbody,table){
+  const div = document.querySelector('div[name="evento"]');
   $(tbody).on("click","button.ver", function(){
     $('#viewModal').modal('show');
     var data = table.row( $(this).parents("tr")).data();
@@ -61,13 +50,16 @@ var obter_data_editar = function(tbody,table){
                     $("#view_direccion").text(data.EV_direccion);
                     $("#view_hora").text(data.EV_hora);
                     $("#view_motivo").text(data.EV_motivo);
+
+
                     if(data.EV_consolidacion == 1){
-                      
+                      div.setAttribute('class','text-success');
                       compra.classList.remove('glyphicon','glyphicon-remove');
                       compra.classList.add('glyphicon','glyphicon-ok');
 
                       document.getElementById("comentario").style.display = "none";
                     }else{
+                      div.setAttribute('class','text-danger');
                       compra.classList.remove('glyphicon','glyphicon-ok');
                       
                       compra.classList.add('glyphicon','glyphicon-remove');
@@ -142,4 +134,88 @@ var idioma_espanol = {
       "sSortDescending": ": Activar para ordenar la columna de manera descendente"
   }
 }
+
+$(document).on("click","button.reporte", function(){
+  $('#reporteModal').modal('show');
+  
+  $.ajax({
+    url: 'reporte',
+    type:'post',
+    datatype: 'json',
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
+    success: function(result){
+      const asesores = result.asesor;
+      const clientes = result.cliente;
+      const grupos = result.grupo;
+
+      const list_asesores = document.querySelector('select[name="asesores"]');
+      const list_clientes = document.querySelector('select[name="clientes"]');
+      const list_grupos = document.querySelector('select[name="grupos"]');
+
+      if(asesores != null){
+        asesores.forEach((asesor) => {
+          var opcion = document.createElement('option');
+          opcion.setAttribute('value',asesor.AS_ID);
+          var textopcion = document.createTextNode(asesor.AS_nombre); // Ocualquiera que necesites mostrar
+          opcion.appendChild(textopcion);
+          list_asesores.appendChild(opcion);
+        });
+      }else{
+        var opcion = document.createElement('option');
+        var textopcion = document.createTextNode("No hay asesores registrados"); // Ocualquiera que necesites mostrar
+        opcion.appendChild(textopcion);
+        list_asesores.appendChild(opcion);
+      }
+
+
+
+      if(clientes != null){
+        clientes.forEach((cliente) => {
+          var opcion = document.createElement('option');
+          opcion.setAttribute('value',cliente.CL_ID);
+          var textopcion = document.createTextNode(cliente.CL_nombre_completo); // Ocualquiera que necesites mostrar
+          opcion.appendChild(textopcion);
+          list_clientes.appendChild(opcion);
+        });
+      }else{
+        var opcion = document.createElement('option');
+        var textopcion = document.createTextNode("No hay clientes registrados"); // Ocualquiera que necesites mostrar
+        opcion.appendChild(textopcion);
+        list_clientes.appendChild(opcion);
+      }
+
+      if(grupos != null){
+        grupos.forEach((grupo) => {
+          var opcion = document.createElement('option');
+          opcion.setAttribute('value',grupo);
+          var textopcion = document.createTextNode(grupo); // Ocualquiera que necesites mostrar
+          opcion.appendChild(textopcion);
+          list_grupos.appendChild(opcion);
+        });
+      }else{
+        var opcion = document.createElement('option');
+        var textopcion = document.createTextNode("No hay grupos registrados"); // Ocualquiera que necesites mostrar
+        opcion.appendChild(textopcion);
+        list_grupos.appendChild(opcion);
+      }
+
+
+      $("#reporteModal").on("hidden.bs.modal", function () {
+        while (list_asesores.lastChild) {
+          list_asesores.removeChild(list_asesores.lastChild);
+        } 
+        while (list_clientes.lastChild) {
+          list_clientes.removeChild(list_clientes.lastChild);
+        } 
+        while (list_grupos.lastChild) {
+          list_grupos.removeChild(list_grupos.lastChild);
+        }
+      });
+    }
+  });
+});
+
+
 

@@ -82,7 +82,9 @@
         </footer>
       </div>
     <script src="{{ asset('assets/js/jquery-1.12.3.js') }}"></script>
+    @yield('datepicker')
     <script src="{{ asset('assets/js/bootstrap3_6/bootstrap.min.js') }}"></script>
+    @yield('bootstrap_datepicker')
     <script src="{{ asset('assets/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('assets/js/dataTables.bootstrap.js') }}"></script>
     <!--botones DataTables-->	

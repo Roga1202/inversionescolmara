@@ -37,7 +37,4 @@ class ClienteController extends Controller
         }
     }
 
-    public function calculated_cliente(){
-        
-    }
 }

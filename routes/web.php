@@ -33,3 +33,5 @@ Route::get('evento/cliente/{id}', 'EventoController@get_evento_cliente')->where(
 Route::get('cliente/{id}', 'ClienteController@getcliente')->where('id', '[0-9]+');
 
 Route::get('asesor/{id}', 'AsesorController@getasesor')->where('id', '[0-9]+');
+
+Route::post('reporte','ReporteController@get_data');
