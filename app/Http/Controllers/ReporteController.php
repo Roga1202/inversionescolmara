@@ -21,19 +21,36 @@ class ReporteController extends Controller
     }
     
     public function get_data(Request $request){
-
+        
+        //EVENTO
         // fecha
-
+        
         // desde
+        
         $desde = $request->input('desde');
         //hasta
         $hasta = $request->input('hasta');
+        
+        if (isset($desde)) {
+            $desde = $desde . ' 00:00:00';
+        }
+        if(isset($hasta)){
+            $hasta = $hasta . ' 23:59:59';
+        }
+        if (empty($desde)) {
+            $hasta = null;
+        }
+        if (empty($hasta)) {
+            $hasta = substr(now(),0,10);
+        }
+        
         
         if(isset($desde) && isset($hasta)){
             if($desde == $hasta){
                 $pedido = Evento::whereDate('EV_fecha','=',$desde)->get();
             }else{
-                $pedido = Evento::whereBetween('EV_fecha', array($desde, $hasta))->get();
+                // $pedido = Evento::whereBetween('EV_fecha',array($desde, $hasta))->get();
+                $pedido = Evento::whereBetween('EV_fecha',[$desde,$hasta])->get();
             }
         }
         
@@ -56,17 +73,10 @@ class ReporteController extends Controller
             $grupos = $request->input('grupos');
         }
         
-        if (empty($desde)) {
-            $hasta = null;
-        }
-        if (empty($hasta)) {
-            $hasta = substr(now(),0,10);
-        }
-        
         if(isset($pedido)){
             if(isset($grupos)){
                 $clientes = Cliente::whereIn('CL_grupo',$grupos)->pluck('CL_ID');
-                $pedido = $pedido->whereIn('EV_asesor',$asesores)->whereIn('EV_cliente',$clientes)->get();
+                $pedido = $pedido->whereIn('EV_asesor',$asesores)->whereIn('EV_cliente',$clientes);
             }else{
                 $pedido = $pedido->whereIn('EV_asesor',$asesores)->whereIn('EV_cliente',$clientes)->get();
             }
@@ -77,11 +87,73 @@ class ReporteController extends Controller
             }
         }
         
-        // foreach ($pedido as $evento) {
+        foreach ($pedido as $item) {
+            $item['EV_cliente'] = $item->Cliente->CL_nombre_completo;
+            $item['EV_asesor'] = $item->Asesor->AS_nombre;
+        }
+
+        $data['pedido'] = $pedido;
+        //finish EVENTO
+
+        //Cliente
+        $pedido_cliente = Cliente::whereIn('CL_ID',$clientes)->orderBy('CL_numero_visitas','desc')->get();
+        $data['cliente'] = $pedido_cliente;
+        //finish CLIENTE
+
+        //Asesor
+        $pedido_asesor = Asesor::whereIn('AS_ID',$asesores)->get();
+        $data['asesor'] = $pedido_asesor;
+        //finish ASESOR
+
+        // dd($data['pedido']);
+        //procesamiento datos
+        foreach ($data['asesor'] as $asesor) {
             
-        // }
+            $visitas = 0;
+            $ventas = 0;
+            
+            foreach ($data['pedido'] as $evento) {
+                if ($asesor->AS_nombre == $evento->EV_asesor) {
+                    $visitas =$visitas+1;
+                    if ($evento->EV_consolidacion == '1') {
+                        $ventas =$ventas+1;
+                    }
+                }
+            }
+            if($visitas > 0 && $ventas > 0){
+                $asesor->AS_porcentaje_ventas = ($ventas/$visitas)*100;
+            }else{
+                $asesor->AS_porcentaje_ventas = 0;
+            }
+            $asesor->AS_visita = $visitas;
+            $asesor->AS_ventas_total = $ventas;
+        }
+
+        foreach ($data['cliente'] as $cliente) {
+            $visitas = 0;
+            $ventas = 0;
+            foreach ($data['pedido'] as $evento) {
+                if ($cliente->CL_nombre_completo == $evento->EV_cliente) {
+                    $visitas =$visitas+1;
+                    if ($evento->EV_consolidacion == '1') {
+                        $ventas =$ventas+1;
+                    }
+                }
+            }
+            if($visitas > 0 && $ventas > 0){
+                $cliente->CL_porcentaje_ventas = ($ventas/$visitas)*100;
+            }else{
+                $cliente->CL_porcentaje_ventas = 0;
+            }
+            $cliente->CL_numero_visitas = $visitas;
+            $cliente->CL_numero_compras = $ventas;
+        }
+        
+        // dd($visitas);
+        // dd($data['asesor']);
+        
         return view('reporte.index',[
-            'pedido' => $pedido,
+            'data' => $data,
         ]);
     }
 }
