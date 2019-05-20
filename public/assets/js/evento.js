@@ -150,9 +150,9 @@ $(document).on("click","button.reporte", function(){
       const clientes = result.cliente;
       const grupos = result.grupo;
 
-      const list_asesores = document.querySelector('select[name="asesores"]');
-      const list_clientes = document.querySelector('select[name="clientes"]');
-      const list_grupos = document.querySelector('select[name="grupos"]');
+      const list_asesores = document.querySelector('select[name="asesores[]"]');
+      const list_clientes = document.querySelector('select[name="clientes[]"]');
+      const list_grupos = document.querySelector('select[name="grupos[]"]');
 
       if(asesores != null){
         asesores.forEach((asesor) => {

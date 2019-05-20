@@ -166,19 +166,19 @@
             {{csrf_field()}}
         <div class="asesores">
           <label>Asesores:</label>
-          <select multiple="multiple" name="asesores"  id="asesores"></select>
+          <select multiple name="asesores[]"  id="asesores[]"></select>
         </div>
         <br>
         <br>
         <div class="clientes">
           <label>Clientes:</label>
-          <select multiple name="clientes" id="clientes"></select>
+          <select multiple name="clientes[]" id="clientes[]"></select>
         </div>
         <br>
         <br>
         <div class="grupos">
           <label>Grupos:</label>
-          <select multiple name="grupos" id="grupos"></select>
+          <select multiple name="grupos[]" id="grupos[]"></select>
         </div>
         <br>
         <br>
@@ -235,17 +235,17 @@
   });
 
   $( function(){
-    $('select[name="clientes"]').on('change', function(){
+    $('select[name="clientes[]"]').on('change', function(){
         var disabled = $(this).val() == null ? false : true;
-        $('select[name="grupos"]').prop('disabled', disabled);
+        $('select[name="grupos[]"]').prop('disabled', disabled);
         });
     });
     
 
   $( function(){
-    $('select[name="grupos"]').on('change', function(){
+    $('select[name="grupos[]"]').on('change', function(){
         var disabled = $(this).val() == null ? false : true;
-        $('select[name="clientes"]').prop('disabled', disabled);
+        $('select[name="clientes[]"]').prop('disabled', disabled);
         });
     });
 
@@ -257,7 +257,7 @@
   $(function () {
           $('#datetimepicker6').datetimepicker({
               viewMode: 'years',
-              format: 'DD/MM/YYYY'
+              format: 'YYYY-MM-DD'
           });
       });
       
@@ -265,7 +265,7 @@
   $(function () {
           $('#datetimepicker7').datetimepicker({
               viewMode: 'years',
-              format: 'DD/MM/YYYY'
+              format: 'YYYY-MM-DD'
           });
       });
 
