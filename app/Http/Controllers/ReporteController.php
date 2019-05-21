@@ -148,9 +148,18 @@ class ReporteController extends Controller
             $cliente->CL_numero_visitas = $visitas;
             $cliente->CL_numero_compras = $ventas;
         }
+
+        foreach ($data['pedido'] as $evento) {
+            $id = Cliente::where('CL_nombre_completo',$evento->EV_cliente)->pluck('CL_grupo');
+            $evento->EV_cliente_grupo = $id;
+        }
         
-        // dd($visitas);
-        // dd($data['asesor']);
+
+        $numero_cliente = count($data['cliente']);
+        foreach ($data['asesor'] as $asesor) {
+            // dd($evento->AS_visita);
+            $asesor->AS_porcentaje_visitas = ($asesor->AS_visita/$numero_cliente)*100;
+        }
         
         return view('reporte.index',[
             'data' => $data,

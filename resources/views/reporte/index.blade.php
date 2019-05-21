@@ -31,7 +31,8 @@
                 <th>Nombre</th>
                 <th>Visitas</th>
                 <th>Ventas</th>
-                <th>Porcentaje Ventas</th>											
+                <th>Porcentaje Ventas</th>										
+                <th>Porcentaje Visitas</th>										
                 <th>Acciones</th>											
               </tr>
             </thead>
@@ -43,9 +44,11 @@
                             <td class="text-center">{{ $asesor['AS_visita'] }}</td>
                             <td class="text-center">{{ $asesor['AS_ventas_total'] }}</td>
                             <td class="text-center">{{ $asesor['AS_porcentaje_ventas'] }} %</td>
+                            <td class="text-center">{{ $asesor['AS_porcentaje_visitas'] }} %</td>
                             <td class="text-center">
-                              <button class="btn btn-info" data-toggle="modal" data-target="#viewModal" onclick="fun_view('{{$asesor['AS_ID']}}')">Ver</button>
-                            </td>
+                                {{-- <button cla  ss="btn btn-info" data-toggle="modal" data-target="#viewCliente" onclick="fun_view ('{{$asesor['AS_ID']}}')">Ver</button> --}}
+                                <button class="btn btn-info" data-toggle="modal" data-target="#viewModalAsesor" onclick="fun_view_asesor('{{$asesor['AS_ID']}}')">Eventos</button>
+                              </td>
                         </tr>
                     @endforeach
                 </tbody>				
@@ -88,8 +91,8 @@
                             <td class="text-center">{{ $cliente['CL_numero_compras'] }}</td>
                             <td class="text-center">{{ $cliente['CL_porcentaje_ventas'] }} %</td>
                             <td class="text-center">
-                              <button class="btn btn-info" data-toggle="modal" data-target="#viewModal" onclick="fun_view('{{$cliente['AS_ID']}}')">Ver</button>
-                            </td>
+                                <button class="btn btn-info" data-toggle="modal" data-target="#viewModalCliente" onclick="fun_view_cliente('{{$cliente['CL_ID']}}')">Ver</button>
+                              </td>
                         </tr>
                     @endforeach
                 </tbody>				
@@ -101,7 +104,7 @@
 </div>
 
 	<!-- View Modal start -->
-  <div class="modal" id="viewModal" role="dialog">
+  <div class="modal" id="viewModalAsesor" role="dialog">
     <div class="modal-dialog">
     
       <!-- Modal content-->
@@ -110,89 +113,69 @@
           <h4 class="modal-title text-center">Ver</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
-        <div class="modal-body">
-          <p><b>ID : </b><span id="view_id" class="text-success"></span></p>
-          <p><b>ID Geolocalizacion : </b><span id="view_id_geo" class="text-success"></span></p>
-          <p><b>Nombre : </b><span id="view_nombre" class="text-success"></span></p>
-          <p><b>Referencia : </b><span id="view_referencia" class="text-success"></span></p>
-          <p><b>NIT : </b><span id="view_nit" class="text-success"></span></p>
-          <p><b>Correo : </b><span id="view_correo" class="text-success"></span></p>
-          <p><b>Grupo : </b><span id="view_grupo" class="text-success"></span></p>
-          <p><b>Direccion: </b><span id="view_direccion" class="text-success"></span></p>
-          <p><b>Descripcion : </b><span id="view_descripcion" class="text-success"></span></p>
-          <p><b>Numero  de visitas: </b><span id="view_numero_visitas" class="text-success"></span></p>
-          <div id="ultima_visita"><p><b>Ultima visita : </b><span id="view_ultima_visita" class="text-success"></span></p></div>
-          <p><b>Numero de compras : </b><span id="view_numero_compras" class="text-success"></span></p>
-          <div id="ultima_compra"><p><b>Ultima compra: </b><span id="view_ultima_compra" class="text-success"></span></p></div>
-          <div id="porcentaje"><p><b>Porcenta de ventas: </b><span id="view_porcentaje" class="text-success"></span></p></div>
-          <p><b>Registrado desde: </b><span id="view_inicio" class="text-success"></span></p>
-        </div>
-         <div class="modal-footer">
-          <button type="button" class="btn btn-default cerrarModal" data-dismiss="modal">Close</button>
+          <div class="modal-body">
+            <div name="eventos">
+
+            </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default cerrarModal" data-dismiss="modal">Close</button>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
-  
-@if(session('numero_errores'))
-  
-<!-- Error Modal start -->
-<div class="modal" id="errorModal" role="dialog">
-    <div class="modal-lg modal-dialog">
-
-    <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title text-center">Errores</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        <div class="modal-body">
-          @php
-              $i = 0;
-          @endphp
-          @foreach (session('errores') as $error)
-            <p style="text-align:center;"><b>Error {{ $i+1 }}:</b>{{ $error }}</p>
-            @php
-                $i++;
-            @endphp
-          @endforeach
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default cerrarModal" data-dismiss="modal">Close</button>
+  	<!-- View Modal start -->
+    <div class="modal" id="viewModalCliente" role="dialog">
+        <div class="modal-dialog">
+        
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title text-center">Ver</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+              <div class="modal-body">
+                <div name="eventos_cliente">
+    
+                </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default cerrarModal" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-@endif
+
+      {{-- <!-- View Modal start -->
+    <div class="modal" id="viewCliente" role="dialog">
+        <div class="modal-dialog">
+        
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title text-center">Vser</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+              <div class="modal-body">
+                <div name="eventos_cliente">
+    
+                </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default cerrarModal" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> --}}
 
 
-<!-- view  evento Modal start -->
-<div class="modal" id="eventoModal" role="dialog">
-  <div class="modal-lg modal-dialog">
-
-  <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title text-center">Eventos</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
-      <div class="modal-body">
-        <div name="eventos"></div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default cerrarModal" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
   
   
 @endsection
 @section('script')
 <script>
     var data = <?php echo json_encode($data); ?>;
-    console.log(data);
 </script>
-<script src="{{ asset('assets/js/cliente.js') }}"></script>
+<script src="{{ asset('assets/js/reporte.js') }}"></script>
 @endsection
