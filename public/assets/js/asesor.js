@@ -31,24 +31,6 @@
         {"defaultContent":"<button class='ver btn btn-info'><i class='fa fa-eye'></i></button><button class='eventos btn btn-warning'><i class='fa fa-expand'></i></button>"},
       ],
       "language": idioma_espanol,
-      "dom":"Bfrtip",
-      "buttons":[                	
-		            {
-		                "extend":    'excelHtml5',
-		                "text":      '<i class="fa fa-file-excel-o"></i>',
-		                "titleAttr": 'Excel'
-		            },
-		            {
-		                "extend":    'csvHtml5',
-		                "text":      '<i class="fa fa-file-text-o"></i>',
-		                "titleAttr": 'CSV'
-		            },
-		            {
-		                "extend":    'pdfHtml5',
-		                "text":      '<i class="fa fa-file-pdf-o"></i>',
-		                "titleAttr": 'PDF'
-		            }
-      ]
     });
      ver("#dt_asesor tbody",table);
   }

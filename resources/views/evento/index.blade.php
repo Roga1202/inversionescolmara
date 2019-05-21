@@ -57,11 +57,11 @@
       </div>
       
       <div class="row">
-        <div id="cuadro1" class="col-sm-10 col-md-10 col-lg-10">
+        <div id="cuadro1" class="col-sm-12 col-md-12 col-lg-12">
           <div class="col-sm-offset-2 col-sm-8">
             <h3 class="text-center"> <small class="mensaje"></small></h3>
           </div>
-          <div class="table-responsive col-sm-10">		
+          <div class="table-responsive col-sm-12">		
             <br>
             
             <table id="dt_evento" class="table table-bordered table-hover" cellspacing="0" width="100%">

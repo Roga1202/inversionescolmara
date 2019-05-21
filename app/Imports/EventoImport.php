@@ -148,7 +148,7 @@ class EventoImport implements ToCollection
                                     if($asesor->AS_ventas_total != 0 && $asesor->AS_visita != 0){
                                         $calculo = ($asesor->AS_ventas_total / $asesor->AS_visita)*100;
                                         $calculo = number_format($calculo, 2, ",", ".");  
-                                        $asesor->AS_porcentaje_ventas = $calculo
+                                        $asesor->AS_porcentaje_ventas = $calculo;
                                     }
                                 }
 
