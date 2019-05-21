@@ -140,10 +140,15 @@ class EventoImport implements ToCollection
                                     $asesor->AS_ventas_total = $numero_ventas;
 
                                     if($cliente->CL_numero_compras != 0 && $cliente->CL_numero_visitas != 0){
-                                        $cliente->CL_porcentaje_ventas = ($cliente->CL_numero_compras / $cliente->CL_numero_visitas)*100    ;
+                                        $calculo = ($cliente->CL_numero_compras / $cliente->CL_numero_visitas)*100;
+                                        $calculo = number_format($calculo, 2, ",", ".");  
+                                        $cliente->CL_porcentaje_ventas = $calculo;
+                                        
                                     }
                                     if($asesor->AS_ventas_total != 0 && $asesor->AS_visita != 0){
-                                        $asesor->AS_porcentaje_ventas = ($asesor->AS_ventas_total / $asesor->AS_visita)*100;
+                                        $calculo = ($asesor->AS_ventas_total / $asesor->AS_visita)*100;
+                                        $calculo = number_format($calculo, 2, ",", ".");  
+                                        $asesor->AS_porcentaje_ventas = $calculo
                                     }
                                 }
 

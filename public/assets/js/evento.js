@@ -29,7 +29,20 @@ var listar = function(){
       {"data":"EV_fecha"},
       {"defaultContent":"<button class='ver btn btn-info'><i class='fa fa-eye'></i></button>"},
     ],
-    "language": idioma_espanol
+    "language": idioma_espanol,
+    "dom":"Bfrtip",
+    "buttons":[                	
+              {
+                  "extend":    'excelHtml5',
+                  "text":      '<i class="fa fa-file-excel-o"></i>',
+                  "titleAttr": 'Excel'
+              },
+              {
+                  "extend":    'pdfHtml5',
+                  "text":      '<i class="fa fa-file-pdf-o"></i>',
+                  "titleAttr": 'PDF'
+              }
+    ]
   });
   ver("#dt_evento tbody",table);
 }

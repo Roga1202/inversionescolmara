@@ -6,11 +6,22 @@
 
 @section('block')
 
-<div class="col-sm-10" style="align:center;">
-
+<div class="row">
+  <div class="col-sm-10">
     <h2 class="page-header text-center">
         Reporte</span>
     </h2>
+  </div>
+  <div class="col-sm-10">
+      <div class="col-sm-5">
+        <label>Asesores: {{ $data['numero_asesores']}}</label>
+      </div>
+      <div class="col-sm-5">
+          <label>Clientes: {{ $data['numero_clientes']}}</label>
+      </div>
+    </div>
+</div>
+<div class="col-sm-10" style="align:center;">
 
     <h2 class="page-header text-center">
         Asesores <span class="glyphicon glyphicon-user"></span>
@@ -44,9 +55,8 @@
                             <td class="text-center">{{ $asesor['AS_visita'] }}</td>
                             <td class="text-center">{{ $asesor['AS_ventas_total'] }}</td>
                             <td class="text-center">{{ $asesor['AS_porcentaje_ventas'] }} %</td>
-                            <td class="text-center">{{ $asesor['AS_porcentaje_visitas'] }} %</td>
+                            <td class="text-center">@isset($asesor['AS_porcentaje_visitas']){{ $asesor['AS_porcentaje_visitas'] }} %@endisset @empty($asesor['AS_porcentaje_visitas']) 0% @endempty</td>
                             <td class="text-center">
-                                {{-- <button cla  ss="btn btn-info" data-toggle="modal" data-target="#viewCliente" onclick="fun_view ('{{$asesor['AS_ID']}}')">Ver</button> --}}
                                 <button class="btn btn-info" data-toggle="modal" data-target="#viewModalAsesor" onclick="fun_view_asesor('{{$asesor['AS_ID']}}')">Eventos</button>
                               </td>
                         </tr>
@@ -89,7 +99,7 @@
                             <td class="text-center">{{ $cliente['CL_referencia'] }}</td>
                             <td class="text-center">{{ $cliente['CL_numero_visitas'] }}</td>
                             <td class="text-center">{{ $cliente['CL_numero_compras'] }}</td>
-                            <td class="text-center">{{ $cliente['CL_porcentaje_ventas'] }} %</td>
+                            <td class="text-center">@isset($cliente['CL_porcentaje_ventas']){{ $cliente['CL_porcentaje_ventas'] }} %@endisset</td>
                             <td class="text-center">
                                 <button class="btn btn-info" data-toggle="modal" data-target="#viewModalCliente" onclick="fun_view_cliente('{{$cliente['CL_ID']}}')">Ver</button>
                               </td>

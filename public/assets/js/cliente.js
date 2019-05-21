@@ -30,8 +30,16 @@
         {"data":"CL_porcentaje_ventas"},
         {"defaultContent":"<button class='ver btn btn-info'><i class='fa fa-eye'></i></button><button class='eventos btn btn-warning'><i class='fa fa-expand'></i></button>"},
       ],
-      "language": idioma_espanol
+      "language": idioma_espanol,
+      "dom":"Bfrtip",
+      "buttons":[  
+        'copyHtml5',
+        'excelHtml5',
+        'csvHtml5',
+        'pdfHtml5'     ]
     });
+    table.buttons().container()
+    .appendTo( $('.col-sm-6:eq(0)', table.table().container() ) );
      ver("#dt_cliente tbody",table);
   }
 

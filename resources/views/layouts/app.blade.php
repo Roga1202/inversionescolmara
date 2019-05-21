@@ -3,8 +3,9 @@
     <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
     
-	  <link rel="shortcut icon" href="{{ asset('assets/img/logo.jpg')}}"/>
+	  <link rel="shortcut icon" href="{{ asset('assets/img/logo.png')}}"/>
     <link rel='stylesheet' href="{{ asset('assets/css/all.css') }}" integrity='sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/' crossorigin='anonymous'>
     <link href="{{ asset('assets/css/fonts-material-icons.css')}}" rel='stylesheet' type='text/css'>
     <link href="{{ asset('assets/css/fonts-roboto.css')}}" rel='stylesheet' type='text/css'>
@@ -39,7 +40,7 @@
         <nav class="navbar navbar-inverse">
           <div class="container-fluid">
             <div class="navbar-header-rigth">
-              <a class="navbar-brand" href="proceso">Inversiones Colmara Ltda</a>
+              <a class="navbar-brand" href="proceso">Inversiones Colmara SAS</a>
             </div>
             <div class="navbar-header-left">
               <a class="navbar-brand" href="/">Salir</a>

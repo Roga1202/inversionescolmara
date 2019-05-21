@@ -21,14 +21,10 @@ class ReporteController extends Controller
     }
     
     public function get_data(Request $request){
-        
-        //EVENTO
-        // fecha
-        
-        // desde
-        
+        $asesor_input = $request->input('asesores');
+        $cliente_input = $request->input('clientes');
+        $grupo_input = $request->input('grupos');
         $desde = $request->input('desde');
-        //hasta
         $hasta = $request->input('hasta');
         
         if (isset($desde)) {
@@ -37,75 +33,94 @@ class ReporteController extends Controller
         if(isset($hasta)){
             $hasta = $hasta . ' 23:59:59';
         }
+
         if (empty($desde)) {
-            $hasta = null;
+            $desde = '00-00-00 00:00:00';
         }
-        if (empty($hasta)) {
+
+        if (isset($desde) && empty($hasta)) {
             $hasta = substr(now(),0,10);
         }
-        
         
         if(isset($desde) && isset($hasta)){
             if($desde == $hasta){
                 $pedido = Evento::whereDate('EV_fecha','=',$desde)->get();
             }else{
-                // $pedido = Evento::whereBetween('EV_fecha',array($desde, $hasta))->get();
                 $pedido = Evento::whereBetween('EV_fecha',[$desde,$hasta])->get();
             }
         }
+
+        $asesor_input = $request->input('asesores');
+        $cliente_input = $request->input('clientes');
+        $grupo_input = $request->input('grupos');
         
         //asesores
-        if(empty($request->input('asesores'))){
-            $asesores = Asesor::orderBy('AS_ID','asc')->pluck('AS_ID');
-        }else{
-            $asesores = $request->input('asesores');
+        if(empty($asesor_input)){
+            $asesores_id = Asesor::orderBy('AS_ID','asc')->pluck('AS_ID');
         }
         //clientes
-        if(empty($request->input('clientes'))){
-            $clientes = Cliente::orderBy('CL_ID','asc')->pluck('CL_ID');
-        }else{
-            $clientes = $request->input('clientes');
+        if(empty($cliente_input)){
+            $clientes_id = Cliente::orderBy('CL_ID','asc')->pluck('CL_ID');
         }
         //grupos
-        if(empty($request->input('grupos'))){
-            $grupos = Cliente::orderBy('CL_grupo','asc')->distinct()->pluck('CL_grupo');
-        }else{
-            $grupos = $request->input('grupos');
+        if(empty($grupo_input)){
+            $grupos = Cliente::distinct()->pluck('CL_grupo');
         }
-        
-        if(isset($pedido)){
-            if(isset($grupos)){
-                $clientes = Cliente::whereIn('CL_grupo',$grupos)->pluck('CL_ID');
-                $pedido = $pedido->whereIn('EV_asesor',$asesores)->whereIn('EV_cliente',$clientes);
-            }else{
-                $pedido = $pedido->whereIn('EV_asesor',$asesores)->whereIn('EV_cliente',$clientes)->get();
-            }
-        }else{
-            if(isset($grupos)){
-                $clientes = Cliente::whereIn('CL_grupo',$grupos)->pluck('CL_ID');
-                $pedido = Evento::whereIn('EV_asesor',$asesores)->whereIn('EV_cliente',$clientes)->get();
-            }
+        //busqueda de cliente con grupo
+        if (isset($grupo_input)) {
+            $cliente_grupo = Cliente::whereIn('CL_grupo',$grupo_input)->pluck('CL_ID');
         }
+
+        if(isset($asesor_input) && empty($cliente_input) && isset($grupo_input)){
+            $eventos = $pedido->whereIn('EV_cliente',$cliente_grupo)->whereIn('EV_asesor',$asesor_input);
+        }
+        if(isset($asesor_input) && isset($cliente_input) && empty($grupo_input)){
+            $eventos = $pedido->whereIn('EV_asesor',$asesor_input)->whereIn('EV_cliente',$cliente_input);
+        }
+        if(empty($asesor_input) && empty($cliente_input) && empty($grupo_input)){
+            $eventos = $pedido->whereIn('EV_asesor',$asesores_id)->whereIn('EV_cliente',$clientes_id);
+        }
+        if(empty($asesor_input) && isset($cliente_input) && empty($grupo_input)){
+            $eventos = $pedido->whereIn('EV_asesor',$asesores_id)->whereIn('EV_cliente',$cliente_input);
+        }
+        if(isset($asesor_input) && empty($cliente_input) && empty($grupo_input)){
+            $eventos = $pedido->whereIn('EV_asesor',$asesor_input)->whereIn('EV_cliente',$clientes_id);
+        }
+        if(empty($asesor_input) && empty($cliente_input) && isset($grupo_input)){
+            $eventos = $pedido->whereIn('EV_asesor',$asesores_id)->whereIn('EV_cliente',$cliente_grupo);
+        }
+
+        if (isset($clientes_id)) {
+            $cliente_input = $clientes_id;
+        }
+
+        if (isset($asesores_id)) {
+            $asesor_input = $asesores_id;
+        }        
         
-        foreach ($pedido as $item) {
+
+        foreach ($eventos as $item) {
             $item['EV_cliente'] = $item->Cliente->CL_nombre_completo;
             $item['EV_asesor'] = $item->Asesor->AS_nombre;
         }
 
         $data['pedido'] = $pedido;
-        //finish EVENTO
-
-        //Cliente
-        $pedido_cliente = Cliente::whereIn('CL_ID',$clientes)->orderBy('CL_numero_visitas','desc')->get();
-        $data['cliente'] = $pedido_cliente;
+        
+        //cliente
+        $clientes = Cliente::whereIn('CL_ID',$cliente_input)->get();
+        $data['cliente'] = $clientes;
+        $numero_clientes = count($clientes);
+        $data['numero_clientes'] = $numero_clientes;
         //finish CLIENTE
 
+        
         //Asesor
-        $pedido_asesor = Asesor::whereIn('AS_ID',$asesores)->get();
-        $data['asesor'] = $pedido_asesor;
+        $asesores = Asesor::whereIn('AS_ID',$asesor_input)->get();
+        $data['asesor'] = $asesores;
+        $numero_asesores = count($asesores);
+        $data['numero_asesores'] = $numero_asesores;
         //finish ASESOR
-
-        // dd($data['pedido']);
+        
         //procesamiento datos
         foreach ($data['asesor'] as $asesor) {
             
@@ -142,6 +157,7 @@ class ReporteController extends Controller
             }
             if($visitas > 0 && $ventas > 0){
                 $cliente->CL_porcentaje_ventas = ($ventas/$visitas)*100;
+                $cliente->CL_porcentaje_ventas = number_format($cliente->CL_porcentaje_ventas,2,".",","); 
             }else{
                 $cliente->CL_porcentaje_ventas = 0;
             }
@@ -158,8 +174,12 @@ class ReporteController extends Controller
         $numero_cliente = count($data['cliente']);
         foreach ($data['asesor'] as $asesor) {
             // dd($evento->AS_visita);
-            $asesor->AS_porcentaje_visitas = ($asesor->AS_visita/$numero_cliente)*100;
+            if(($asesor->AS_visita > 0)){
+                $asesor->AS_porcentaje_visitas = ($asesor->AS_visita/$numero_cliente)*100;
+                $asesor->AS_porcentaje_visitas = number_format($asesor->AS_porcentaje_visitas,2,".",","); 
+            }
         }
+        
         
         return view('reporte.index',[
             'data' => $data,

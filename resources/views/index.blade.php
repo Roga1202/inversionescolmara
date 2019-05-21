@@ -8,9 +8,9 @@
   <meta name="description" content="">
   <meta name="author" content="">
   
-  <link rel="shortcut icon" href="{{ asset('assets/img/logo.jpg')}}"/>
+  <link rel="shortcut icon" href="{{ asset('assets/img/logo.png')}}"/>
 
-  <title>Colmara Ltda</title>
+  <title>Colmara SAS</title>
 
   <!-- Bootstrap core CSS -->  
   <link href="{{asset('vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
@@ -29,7 +29,7 @@
 <body id="page-top">
 
   <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
     <div class="container">
       <a class="navbar-brand js-scroll-trigger" href="#page-top"><img src="img/logo.png"></a>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,7 +63,7 @@
   <header class="masthead">
     <div class="container">
       <div class="intro-text">
-        <div class="intro-heading text-uppercase" style="font-size: 30PX;">Bienvenido a </br>  <p class="intro-lead-in">Colmara Ltda</p></div>
+        <div class="intro-heading text-uppercase" style="font-size: 30PX;">Bienvenido a </br>  <p class="intro-lead-in">Colmara SAS</p></div>
         <div class="intro-lead-in">Distribuidor Autorizado General Motors Colmotores</div>
         <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#services">Dime más</a>
       </div>

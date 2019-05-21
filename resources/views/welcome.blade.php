@@ -10,7 +10,7 @@
   
   <link rel="shortcut icon" href="{{ asset('assets/img/logo.jpg')}}"/>
 
-  <title>Colmara Ltda</title>
+  <title>Colmara SAS</title>
 
   <!-- Bootstrap core CSS -->  
   <link href="{{asset('vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
@@ -63,7 +63,7 @@
   <header class="masthead">
     <div class="container">
       <div class="intro-text">
-        <div class="intro-heading text-uppercase" style="font-size: 30PX;">Bienvenido a </br>  <p class="intro-lead-in">Colmara Ltda</p></div>
+        <div class="intro-heading text-uppercase" style="font-size: 30PX;">Bienvenido a </br>  <p class="intro-lead-in">Colmara SAS</p></div>
         <div class="intro-lead-in">Distribuidor Autorizado General Motors Colmotores</div>
         <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#services">Dime más</a>
       </div>
