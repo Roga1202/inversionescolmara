@@ -58,22 +58,22 @@ var listar = function(){
       {
           extend:    'copyHtml5',
           text:      '<i class="fa fa-clipboard"></i>Copiar',
-          title:'Titulo de tabla copiada',
+          title:'Evento',
           titleAttr: 'Copiar',
           className: 'btn btn-app export barras',
           exportOptions: {
-              columns: [ 0, 1,2,3,4]
+              columns: [ 0, 1,2,3]
           }
       },
 
       {
           extend:    'pdfHtml5',
           text:      '<i class="fa fa-file-pdf-o"></i>PDF',
-          title:'Titulo de tabla en pdf',
+          title:'Evento',
           titleAttr: 'PDF',
           className: 'btn btn-app export pdf',
           exportOptions: {
-              columns: [ 0,1,2,3,4]
+              columns: [ 0,1,2,3]
           },
           customize:function(doc) {
 
@@ -101,7 +101,7 @@ var listar = function(){
           titleAttr: 'Excel',
           className: 'btn btn-app export excel',
           exportOptions: {
-              columns: [ 0,1,2,3,4]
+              columns: [ 0,1,2,3]
           },
       },
           ]

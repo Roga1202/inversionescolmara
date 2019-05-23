@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.proceso')
 
 @section('head')
     <link href="{{ asset('assets/css/botones.css')}}" rel='stylesheet' type='text/css'>
@@ -8,34 +8,6 @@
   @endsection
 
 @section('block')
-
-
-@if (session('error_critico'))
-  <div class="alert alert-danger" role="alert">
-  <p>{{ session('error_critico') }}</p>
-  </div>
-@endif
-
-@if(session('numero_errores'))
-  @if (session('numero_errores') > 0)
-    <div class="alert alert-danger" role="alert">
-    @if (session('numero_errores') == 1)
-      Numero de registros {{ session('numero_registros') }}.Se ha encontrado {{ session('numero_errores') }} error.
-      <a style='cursor: pointer;' data-toggle="modal" data-target="#errorModal" class="boton_mostrar">Ver mas</a>
-    </div>
-    @else
-      Numero de registros {{ session('numero_registros') }}.Se han encontrado {{ session('numero_errores') }} errores.
-      <a style='cursor: pointer;' data-toggle="modal" data-target="#errorModal" class="boton_mostrar">Ver mas</a>
-    </div>
-    @endif
-  @endif
-@endif
-
-@php
-    if((session('notificacion') == True) && (session('numero_registros') > 0)){
-      echo '<div class="alert alert-success" role="alert"> Numero de registros ' . session('numero_registros') . '. Se ha guardado todo con exito.';
-    }
-@endphp
 
 <div class="col-sm-10" style="align:center;">
 

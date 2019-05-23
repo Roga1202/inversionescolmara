@@ -70,7 +70,7 @@
         {
             extend:    'pdfHtml5',
             text:      '<i class="fa fa-file-pdf-o"></i>PDF',
-            title:'Titulo de tabla en pdf',
+            title:'Clientes',
             titleAttr: 'PDF',
             className: 'btn btn-app export pdf',
             exportOptions: {
@@ -98,7 +98,7 @@
         {
             extend:    'excelHtml5',
             text:      '<i class="fa fa-file-excel-o"></i>Excel',
-            title:'Titulo de tabla en excel',
+            title:'Clientes',
             titleAttr: 'Excel',
             className: 'btn btn-app export excel',
             exportOptions: {
