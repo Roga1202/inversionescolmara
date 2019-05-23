@@ -35,6 +35,7 @@ class AsesorController extends Controller
     {
         if($request->ajax()){
             $id = $request->id;
+            $info = Asesor::find($id);
             return response()->json($info);
         }
     }
