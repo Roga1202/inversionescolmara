@@ -31,6 +31,82 @@
         {"defaultContent":"<button class='ver btn btn-info'><i class='fa fa-eye'></i></button><button class='eventos btn btn-warning'><i class='fa fa-expand'></i></button>"},
       ],
       "language": idioma_espanol,
+      
+    
+      "paging": true,
+      "lengthChange": true,
+      "searching": true,
+      "ordering": true,
+      "info": true,
+      "autoWidth": true,
+      "pageLength": 5000,
+      "lengthMenu": [[5,10,20, -1],[5,10,50,"Mostrar Todo"]],
+      dom: 'Bfrt<"col-md-6 inline"i> <"col-md-6 inline"p>',
+      
+      
+    
+      buttons: {
+        dom: {
+          container:{
+            tag:'div',
+            className:'flexcontent'
+          },
+          buttonLiner: {
+            tag: null
+          }
+        },
+      buttons: [
+        {
+            extend:    'copyHtml5',
+            text:      '<i class="fa fa-clipboard"></i>Copiar',
+            title:'Titulo de tabla copiada',
+            titleAttr: 'Copiar',
+            className: 'btn btn-app export barras',
+            exportOptions: {
+                columns: [ 0, 1,2,3,4]
+            }
+        },
+
+        {
+            extend:    'pdfHtml5',
+            text:      '<i class="fa fa-file-pdf-o"></i>PDF',
+            title:'Titulo de tabla en pdf',
+            titleAttr: 'PDF',
+            className: 'btn btn-app export pdf',
+            exportOptions: {
+                columns: [ 0,1,2,3,4]
+            },
+            customize:function(doc) {
+
+                doc.styles.title = {
+                    color: '#4c8aa0',
+                    fontSize: '30',
+                    alignment: 'center'
+                }
+                doc.styles['td:nth-child(2)'] = { 
+                    width: '100px',
+                    'max-width': '100px'
+                },
+                doc.styles.tableHeader = {
+                    fillColor:'#4c8aa0',
+                    color:'white',
+                    alignment:'center'
+                },
+                doc.content[1].margin = [ 100, 0, 100, 0 ]
+            }
+        },
+        {
+            extend:    'excelHtml5',
+            text:      '<i class="fa fa-file-excel-o"></i>Excel',
+            title:'Titulo de tabla en excel',
+            titleAttr: 'Excel',
+            className: 'btn btn-app export excel',
+            exportOptions: {
+                columns: [ 0,1,2,3,4]
+            },
+        },
+            ]
+    }
     });
      ver("#dt_asesor tbody",table);
   }

@@ -1,8 +1,9 @@
 @extends('layouts.app')
 
 @section('head')
-  <link href="{{ asset('assets/css/error.css')}}" rel='stylesheet' type='text/css'>
-  <link href="{{ asset('assets/css/archivo.css')}}" rel='stylesheet' type='text/css'>
+    <link href="{{ asset('assets/css/error.css')}}" rel='stylesheet' type='text/css'>
+    <link href="{{ asset('assets/css/botones.css')}}" rel='stylesheet' type='text/css'>
+    <link href="{{ asset('assets/css/archivo.css')}}" rel='stylesheet' type='text/css'>
   <meta name="csrf-token" content="{{ csrf_token() }}">
   @endsection
 

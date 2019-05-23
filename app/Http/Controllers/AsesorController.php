@@ -23,6 +23,10 @@ class AsesorController extends Controller
     public function ajax_asesores(){
 
         $asesores = Asesor::all();
+
+        foreach ($asesores as $asesor) {
+        $asesor->AS_porcentaje_ventas = $asesor->AS_porcentaje_ventas . '%';
+        }
         
         return response()->json($asesores);
     }
@@ -31,7 +35,6 @@ class AsesorController extends Controller
     {
         if($request->ajax()){
             $id = $request->id;
-            $info = Asesor::find($id);
             return response()->json($info);
         }
     }

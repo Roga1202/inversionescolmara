@@ -176,7 +176,7 @@ class ReporteController extends Controller
             // dd($evento->AS_visita);
             if(($asesor->AS_visita > 0)){
                 $asesor->AS_porcentaje_visitas = ($asesor->AS_visita/$numero_cliente)*100;
-                $asesor->AS_porcentaje_visitas = number_format($asesor->AS_porcentaje_visitas,2,".",","); 
+                $asesor->AS_porcentaje_visitas = number_format($asesor->AS_porcentaje_visitas,2,".",",");
             }
         }
         

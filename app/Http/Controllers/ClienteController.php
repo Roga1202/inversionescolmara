@@ -24,6 +24,11 @@ class ClienteController extends Controller
     public function ajax_clientes(){
 
         $clientes = Cliente::all();
+
+        
+        foreach ($clientes as $cliente) {
+            $cliente->CL_porcentaje_ventas = $cliente->CL_porcentaje_ventas . '%';
+            }
         
         return response()->json($clientes);
     }
